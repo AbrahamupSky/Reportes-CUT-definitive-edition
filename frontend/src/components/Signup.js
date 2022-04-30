@@ -93,6 +93,10 @@ export const Signup = () => {
                                 <option value='0'>Escoge una opcion</option>
                                 <option value='1'>Jefe de Departamento</option>
                                 <option value='2'>Maestro</option>
+                                <option value='3'>Presidente de academia (Ingenieria de Software)</option>
+                                <option value='4'>Presidente de academia (Programacion Avanzada)</option>
+                                <option value='5'>Presidente de academia (Gestion de datos)</option>
+                                <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
                             </select>
                         </div>
 

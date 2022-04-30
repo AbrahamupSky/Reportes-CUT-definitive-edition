@@ -105,7 +105,7 @@ def register():
             return make_response(jsonify(d), 400)
         elif not re.match(r'^[0-9,$]+$', code):
             return make_response(jsonify(e), 400)
-        elif not re.match(r'^["1"|"2"]+$', json.dumps(role)):
+        elif not re.match(r'^["1"|"2"|"3"|"4"|"5"|"6"]+$', json.dumps(role)):
             return make_response(jsonify(f), 400)
         else:
             cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s)', (code, name,

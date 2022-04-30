@@ -34,9 +34,17 @@ export const Profile = () => {
         setCorreo(data.email)
         if (data.role === 1) {
             return setRol('Jefe de Departamento')
-        } else
+        } else if (data.role === 2) {
             return setRol('Maestro')
-
+        } else if (data.role === 3) {
+            return setRol('Presidente de Academia (Ingenieria de Software)')
+        } else if (data.role === 4) {
+            return setRol('Presidente de Academia (Programacion Avanzada)')
+        } else if (data.role === 5) {
+            return setRol('Presidente de Academia (Gestion de datos)')
+        } else {
+            return setRol('Presidente de Academia (Gestion De Tecnologias De Informacion)')
+        }
     }
 
 
