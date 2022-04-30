@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskApp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        function closeWindow() {
+            window.open('', '_parent', '');
+            window.close();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Archivos subidos correctamente!</h4>
+            <p>A continuacion tienes una tabla con los archivos recien subidos, verifica que todo este correcto.</p>
+            <hr>
+            <p class="mb-0">Puedes ver y eliminar todos tu archivos en el apartado de generar reportes.</p>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre del Archivo</th>
+                </tr>
+            </thead>
+            <tb ody>
+                {% for row in msg %}
+                <tr>
+                    <th scope="row">{{msg.index(row)+1}}</th>
+                    <td>{{row}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="javascript:closeWindow();"> <button type="button" class="btn btn-success btn-lg">Aceptar</button></a>
+    </div>
+    
+
+</body>
+
+</html>
