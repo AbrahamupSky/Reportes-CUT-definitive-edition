@@ -350,6 +350,18 @@ def view(codigo):
         return make_response(jsonify(res))
     return make_response(jsonify(d), 401)
 
+@app.route('/view/', methods=['GET'])
+def viewAllFiles():
+    d = 'Necesitas iniciar sesion para ver el contenido'
+
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT files.id, files.academyName, files.courseName, files.evidenceType, files.shift, files.fileName FROM files')
+        res = cursor.fetchall()
+
+        return make_response(jsonify(res))
+    return make_response(jsonify(d), 401)
+
 @app.route('/quickview/<codigo>', methods=['GET'])
 def quickCourse(codigo):
     a = 'Code Undefined'

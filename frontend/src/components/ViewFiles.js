@@ -4,6 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons'
 
 const API = process.env.REACT_APP_API;
+Object.filter = function(mainObject, filterFunction){
+    return Object.keys(mainObject)
+          .filter( function(ObjectKey){
+              return filterFunction(mainObject[ObjectKey])
+          } )
+          .reduce( function (result, ObjectKey){
+              result[ObjectKey] = mainObject[ObjectKey];
+              return result;
+            }, {} );
+}
+const filterAcademy = ( academies, rol) => {
+    let academy
+    console.log(rol)
+    if (rol === '3') {
+        academy = 'Ingenieria de Software'
+    } else if (rol === '4') {
+        academy = 'Programacion Avanzada'
+    } else if (rol === '5') {
+        academy = 'Gestion de datos'
+    }else if (rol === '6') {
+        academy = 'Gestion De Tecnologias De Informacion'
+    }else if (rol === '1') {
+        return academies
+    }
+    var targetSubjects = Object.filter(academies, function(acade){
+        return acade.academyName === academy;
+    });
+    return targetSubjects
+      // return academies
+}
 
 export const ViewFiles = () => {
 
@@ -21,17 +51,53 @@ export const ViewFiles = () => {
 
         if (temp && temp !== "" && temp !== undefined) {
             const res = await fetch(`${API}/view/${temp}`, opts)
+            let data = await res.json();
+            data = filterAcademy(data, rol )
+            setTeachers(Object.values(data))
+            sessionStorage.removeItem('Temp')
+            document.getElementById('Codigo').value = ''
+        }else{
+            const res = await fetch(`${API}/view/${codigo}`, opts)
+            let data = await res.json();
+            data = filterAcademy(data, rol)
+            setTeachers(Object.values(data))
+        }
+
+    }
+
+    const getAllFiles = async () => {
+        const opts = {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        };
+
+        if (temp && temp !== "" && temp !== undefined) {
+            const res = await fetch(`${API}/view/${temp}`, opts)
             const data = await res.json();
             setTeachers(data)
             sessionStorage.removeItem('Temp')
             document.getElementById('Codigo').value = ''
         }else{
-            const res = await fetch(`${API}/view/${codigo}`, opts)
+            const res = await fetch(`${API}/view/`, opts)
             const data = await res.json();
             setTeachers(data)
         }
 
     }
+
+    const MiComponente = function (props) {
+        const rol = sessionStorage.getItem("Rol")
+        if (rol === '1') { 
+            return (
+                <div className="input-group mb-3" style={{ maxWidth: '20vw' }}>
+                    <button onClick={() => getAllFiles()} className="btn btn-primary" type="button" id="button-addon2">Mostrar todos</button>
+                </div>
+            );
+        }
+        else
+            return ('');
+       };
 
 
     return (
@@ -45,8 +111,9 @@ export const ViewFiles = () => {
                             <input onChange={(e) => setCode(e.target.value)} type="text" className="form-control" placeholder="Codigo" aria-label="Codigo" value={temp} id="Codigo" aria-describedby="button-addon2" />
                             <button onClick={() => getTeacher(code)} className="btn btn-primary" type="button" id="button-addon2">Buscar</button>
                         </div>
+                        
 
-
+                        <MiComponente></MiComponente>
                         <table className="table table-bordered">
                             <thead className="bg-primary text-white">
                                 <tr>
@@ -61,6 +128,8 @@ export const ViewFiles = () => {
                             </thead>
                             <tbody>
                                 {teachers.map(user => (
+
+
                                     <tr key={user.id}>
                                         <td>{user.id}</td>
                                         <td>{user.academyName}</td>
@@ -71,6 +140,7 @@ export const ViewFiles = () => {
                                         <td><button onClick={() => window.open(`${API}/fileView/${user.id}`, '_blank')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
                                     </tr>
                                 ))}
+
                             </tbody>
                         </table>
 
