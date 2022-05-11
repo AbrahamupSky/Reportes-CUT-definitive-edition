@@ -146,6 +146,16 @@ def uploads():
             evidenceType = request.form['evidenceType']
             shift = request.form['shift']
             date = datetime.now()
+            cycle = str(date.year) + "-A" if date.month < 8 else str(date.year) + "-B"
+
+            cy = mysql.connection.cursor()
+            cy.execute('SELECT * FROM cycles where cycle = %s', (cycle, ))
+            currentCycle = cy.fetchone()
+            idCycle = 0
+            
+            if currentCycle:
+                idCycle = currentCycle['id']
+
             files = request.files.getlist('formFile')
             myList = []
 
@@ -157,8 +167,8 @@ def uploads():
                 myList.append(filename)
 
                 cursor = mysql.connection.cursor()
-                cursor.execute('INSERT INTO files VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
-                    'Null', date, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
+                cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
+                    'Null', date, idCycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
                 mysql.connection.commit()
             return make_response(render_template('uploadDone.html', msg=myList), 200)
 
@@ -280,9 +290,20 @@ def getTeacher():
      if request.method == 'POST':
         code = request.json['codigo']
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT files.date, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s', (code,))
+        cursor.execute('SELECT files.date, files.cycle, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s', (code,))
         res = cursor.fetchall()
         return make_response(jsonify(res), 200)
+
+
+@ app.route('/getSchoolCycles', methods=['POST'])
+def getCycles():
+    if request.method == 'POST':
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT id, cycle FROM cycles')
+        cycle = cursor.fetchall()
+        return make_response(jsonify(cycle), 200)
+        
+
 
 @app.route('/plot', methods=['POST'])
 def plot():

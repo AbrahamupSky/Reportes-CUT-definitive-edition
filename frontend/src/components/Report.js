@@ -11,6 +11,9 @@ export const Report = () => {
   const id = sessionStorage.getItem("id");
   const em = sessionStorage.getItem("email")
   const [files, setFiles] = useState([]);
+  const [filteredFiles, setFilteredFiles] = useState([]);
+  const [cycles, setCycles] = useState([]);
+  const [cycleSelect, setCycleSelect] = useState('')
 
   const getFiles = async () => {
 
@@ -31,8 +34,23 @@ export const Report = () => {
     setFiles(data);
   }
 
+  const getCycles = async () => {
+    const opts = {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await fetch(`${API}/getSchoolCycles`, opts);
+    const data = await res.json();
+    setCycles(data);
+  }
+
   useEffect(() => {
     getFiles();
+    getCycles();
   }, [])
 
 
@@ -81,13 +99,40 @@ export const Report = () => {
 
   }
 
+  const captureCycle = async (e) => {
+    e.preventDefault();
+    console.log(cycleSelect);
+    filesFilter();
+    console.log(filesFilter());
+  }
+ 
+  function filesFilter() {
+    const filesArray = [];
+    for (var file in files) {
+      if (files[file].cycle === cycleSelect) {
+        filesArray.push(files[file]);
+      }
+    }
+    setFilteredFiles(filesArray);
+    return;
+  }
+
   return (
     <div>
       {rol === "1" ? <Redirect to="/index" /> :
 
 
         <div className="row" style={{ maxWidth: '99vw' }}>
-
+          <div onClick={captureCycle} className="col-md-6 mt-3">
+            <label htmlFor="cycle" className="form-label mt-4">Ciclo</label>
+            <select onChange={e => setCycleSelect(e.target.selectedIndex)} className="form-select" name="cycle" id="cycle" required>
+              <option defaultValue="0"></option>
+              {
+                cycles.map(cycle => (
+                  <option key={cycle.id} value={cycle.id}> {cycle.cycle}</option>
+                ))}
+            </select>
+          </div>
           <div className="TABLA  col-md-8 mt-3">
             <TableScrollbar height = "80vh">
             <table className="table table-bordered">
@@ -101,7 +146,7 @@ export const Report = () => {
                 </tr>
               </thead>
               <tbody>
-                {files.map(item => (
+                {filteredFiles.map(item => (
                   <tr key={item.id}>
                     <td>{item.shift}</td>
                     <td>{item.evidenceType}</td>
