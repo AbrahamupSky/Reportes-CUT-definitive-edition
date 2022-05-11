@@ -2,6 +2,8 @@ import { Redirect } from "react-router-dom"
 import React, { useState, useEffect } from "react";
 import TableScrollbar from 'react-table-scrollbar'
 import Plot from "./Plot";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFileAlt } from '@fortawesome/free-solid-svg-icons'
 
 const API = process.env.REACT_APP_API;
 
@@ -98,6 +100,7 @@ export const Report = () => {
                   <th scope="col">Materia</th>
                   <th scope="col">Archivo</th>
                   <th scope="col">Eliminar</th>
+                  <th scope="col">Ver</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,6 +113,10 @@ export const Report = () => {
                     <td className="text-center">
                       <button onClick={() => DeleFile(item.id)} className="btn btn-danger btn-sm">Eliminar</button>
                     </td>
+                    
+                    <td><button onClick={() => window.open(`${API}/fileView/${item.id}`, '_blank')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
+
+                  
                   </tr>
                 ))}
               </tbody>

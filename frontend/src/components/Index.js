@@ -25,7 +25,15 @@ export const Index = () => {
         }
     }
 
-
+    function hiddendiv(){
+        var master1 = document.getElementById("master");
+        var boss = document.getElementById("jefe");
+        if (rol === "2"){
+            boss.hidden = true;
+            master1.classList.add("row-cols-md-2")
+            master1.classList.remove("row-cols-md-3")
+        }
+    }
 
     return (
         <div className="container mt-5">
@@ -34,7 +42,7 @@ export const Index = () => {
                 Bienvenido {em} has iniciado sesion!.
             </div>
 
-            <div className="row row-cols-1 row-cols-md-3 g-4">
+            <div className="row row-cols-1 row-cols-md-3 g-4" id ="master" onLoad={hiddendiv}>
                 <div className="col Card1">
                     <div className="card h-100">
                         <img src={card1} className="card-img-top" alt="..." />
@@ -65,7 +73,7 @@ export const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col Card3">
+                <div className="col Card3" id="jefe" onLoad={hiddendiv}>
                     <div className="card h-100">
                         <img src={card3} className="card-img-top" alt="..." />
                         <div className="card-body">
