@@ -19,6 +19,7 @@ app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'cutdb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['SESSION_COOKIE_SAMESITE'] = "Lax"
+app.config['port'] = "3307"
 
 api_cors_config = {
     "origins": "*",
@@ -128,6 +129,7 @@ def profile():
         res = cursor.fetchone()
 
         return make_response(jsonify(res), 200)
+
 
 
 # Componente Uploads (React)

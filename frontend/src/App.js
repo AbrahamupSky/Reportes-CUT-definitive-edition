@@ -13,6 +13,7 @@ import {Error404} from './components/Error404';
 import {Report} from './components/Report'
 import {Audit} from './components/Audit'
 import {ViewFiles} from './components/ViewFiles';
+import {checkusers} from './components/checkusers';
 
 
 
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Signup} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/checkusers" component={checkusers} />
           <PrivateRoute exact path="/index" component={Index} />
           <PrivateRoute exact path="/upload" component={Uploads} />
           <PrivateRoute exact path="/report" component={Report} />

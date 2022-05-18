@@ -26,7 +26,7 @@ export const Signup = () => {
                 nombre: nombre,
                 email: email,
                 contraseña: contraseña,
-                role: rol,
+                role: rol
             })
         })
         const data = await res.text()
@@ -99,6 +99,10 @@ export const Signup = () => {
                                 <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
                             </select>
                         </div>
+
+                  
+
+                    
 
                         <div className="text-center mt-4">
                             <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrarse</button>

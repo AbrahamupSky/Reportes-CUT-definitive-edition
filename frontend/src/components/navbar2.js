@@ -6,6 +6,10 @@ const rol = sessionStorage.getItem("Rol")
 
 export const Ybarra = () => {
 
+
+  
+
+
   const kill = (e) => {
     const opts = {
       method: 'GET',
@@ -32,17 +36,37 @@ export const Ybarra = () => {
       .catch(err => console.log(err))
   }
 
+
+    
+
+   
+    setTimeout(function(){
+      if (rol === "2") {
+        var validar = document.getElementById("validar")
+        validar.classList.add("d-none")
+      } 
+    },10);
+
+
   function click() {
     if (rol === "2") {
         window.alert('No tienes acceso aqui')
+      }
     }
-}
+
+  
+    
+
+    
+    
+    
+
 
 
   return (
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container-fluid">
+      <div  className="container-fluid">
         <Link className="navbar-brand" to="/index">Reportes CUT</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
@@ -60,6 +84,9 @@ export const Ybarra = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
+            </li>
+            <li id='validar' className=" nav-item">
+              <Link className="nav-link" to="/checkusers">Validar Usuarios</Link>
             </li>
           </ul>
           <div className="logout">
