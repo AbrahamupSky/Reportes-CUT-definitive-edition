@@ -37,26 +37,42 @@ mysql = MySQL(app)
 @app.route('/', methods=['POST'])
 def login():
     d = 'Credenciales Incorrectas'
+    c = 'Usuario Denegado'
     if request.method == 'POST':
         email = request.json['correo']
         password = request.json['contraseña'].encode('utf-8')
+        Status = 1
 
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
         correo = cursor.fetchone()
 
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM users WHERE Status = %s AND email = %s', (Status,email))
+        Status = cursor.fetchone()
+
         if correo is None:
             return make_response(jsonify(d), 401)
+        
+
+        
+       
+        
+        
 
         hashed = str(correo['password']).encode('utf-8')
         estatus = bcrypt.checkpw(password, hashed)
 
         if correo and estatus:
-            session.clear()
-            session['loggedin'] = True
-            session['id'] = correo['codeUDG']
-            session['email'] = correo['email']
-            session['Rol'] = correo['role']
+            if Status:
+                session.clear()
+                session['loggedin'] = True
+                session['id'] = correo['codeUDG']
+                session['email'] = correo['email']
+                session['Rol'] = correo['role']
+            else:
+                return make_response(jsonify(c), 401)
+                
         else:
             return make_response(jsonify(d), 401)
 
@@ -71,6 +87,29 @@ def logout():
     session.pop('Rol', None)
 
     return make_response(jsonify(session))
+
+@app.route('/validar', methods=['POST'])
+def validar():
+    a = 'Validacion Actualizada con exito!'
+    b = 'La validacion ya fue realizada'
+    if request.method == 'POST':
+        code = request.json['codigo']
+        name = request.json['nombre']
+        Status = request.json['Status']
+
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM users WHERE fullName = %s AND Status = %s', (name,Status))
+        status = cursor.fetchall()
+
+        if status:
+            return make_response(jsonify(b), 200)
+        else:
+            cursor.execute('UPDATE `users` SET `Status`=%s', (code, ))
+            mysql.connection.commit()
+            
+    
+    
 
 
 @app.route('/register', methods=['POST'])
@@ -88,6 +127,8 @@ def register():
         email = request.json['email']
         password = request.json['contraseña']
         role = request.json['role']
+        Status = request.json['Status']
+
 
         # validacion en db sobre codigo
         cursor = mysql.connection.cursor()
@@ -109,8 +150,8 @@ def register():
         elif not re.match(r'^["1"|"2"|"3"|"4"|"5"|"6"]+$', json.dumps(role)):
             return make_response(jsonify(f), 400)
         else:
-            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s)', (code, name,
-                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role))
+            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s)', (code, name,
+                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role,Status))
             mysql.connection.commit()
 
     return make_response(jsonify(a), 200)

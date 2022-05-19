@@ -41,7 +41,7 @@ export const Ybarra = () => {
 
    
     setTimeout(function(){
-      if (rol === "2") {
+      if (rol === "1"|| rol === "2" || rol === "3"|| rol === "4" || rol === "5" || rol === "6") {
         var validar = document.getElementById("validar")
         validar.classList.add("d-none")
       } 

@@ -26,7 +26,8 @@ export const Signup = () => {
                 nombre: nombre,
                 email: email,
                 contraseña: contraseña,
-                role: rol
+                role: rol,
+                Status: 0
             })
         })
         const data = await res.text()
