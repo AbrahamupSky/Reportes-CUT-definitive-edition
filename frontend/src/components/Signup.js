@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus} from '@fortawesome/free-solid-svg-icons'
 
 const API = process.env.REACT_APP_API;
 
@@ -99,11 +100,11 @@ export const Signup = () => {
                                 <option value='5'>Presidente de academia (Gestion de datos)</option>
                                 <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
                             </select>
+                            <button onClick={() => roles()}  className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faPlus} /></button>
                         </div>
+                             
 
-                  
 
-                    
 
                         <div className="text-center mt-4">
                             <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrarse</button>
@@ -116,4 +117,23 @@ export const Signup = () => {
             }
         </div>
     )
+
+
+    const roles = async (codigo) => {
+
+        <div className="col-md-6">
+        <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica tu rol</label>
+        <select defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
+            <option value='0'>Escoge una opcion</option>
+            <option value='1'>Jefe de Departamento</option>
+            <option value='2'>Maestro</option>
+            <option value='3'>Presidente de academia (Ingenieria de Software)</option>
+            <option value='4'>Presidente de academia (Programacion Avanzada)</option>
+            <option value='5'>Presidente de academia (Gestion de datos)</option>
+            <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
+        </select>
+    </div>
+        };
+
+
 }

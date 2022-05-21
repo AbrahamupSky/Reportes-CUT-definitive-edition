@@ -10,6 +10,7 @@ export const Profile = () => {
     const [nombre, setNombre] = useState('')
     const [codigo, setCodigo] = useState('')
     const [correo, setCorreo] = useState('')
+    const [Status, setStatus] = useState('')
     const [rol, setRol] = useState('')
 
     const getProfile = async () => {
@@ -28,10 +29,11 @@ export const Profile = () => {
 
         const res = await fetch(`${API}/profile`, opts)
         const data = await res.json()
-
+ 
         setNombre(data.fullName)
         setCodigo(data.codeUDG)
         setCorreo(data.email)
+        setStatus(data.Status)
         if (data.role === 1) {
             return setRol('Jefe de Departamento')
         } else if (data.role === 2) {
@@ -59,6 +61,12 @@ export const Profile = () => {
                             <fieldset>
                                 <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo</label>
                                 <input className="form-control" value={nombre} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
+                            </fieldset>
+                        </div>
+                        <div className="form-group">
+                            <fieldset>
+                                <label className="form-label mt-4" htmlFor="readOnlyInput">Status</label>
+                                <input className="form-control" value={Status} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
                         <div className="form-group">

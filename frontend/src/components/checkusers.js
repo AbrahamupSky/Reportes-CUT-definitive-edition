@@ -11,7 +11,7 @@ export const Checkusers = () => {
     const rol = sessionStorage.getItem("Rol")
     const [users, setUsers] = useState([]) //Trae usuarios para la paginacion
     const [name, setName] = useState('')//Setea el nombre para la vista rapida
-    const [Status, setStatus] = useState('')//Setea el nombre para la vista rapida
+    const [status, setStatus] = useState('')//Setea el Status para la vista rapida
     const [code, setCode] = useState('')//Sete el codigo para descargar reporte en la vista rapida
     const [quick, setQuick] = useState([]) //Mapeo de la informacion de vista rapida
     const [paginated, setPaginated] = useState([]) //Mapeo de usuarios con slice()
@@ -36,14 +36,30 @@ export const Checkusers = () => {
         getUsers();
     }, [])
     
-    const select = async (nombre, codigo) => {
-        setName(nombre)
-        setCode(codigo)
 
-        const res = await fetch(`${API}/quickview/${codigo}`)
+    const select = async (nombre, codigo ) => {
+
+        const opts = {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                codigo: codigo,
+            })
+        };
+
+        const res = await fetch(`${API}/profile`, opts)
         const data = await res.json()
-        setQuick(data)
+ 
+        setName(data.fullName)
+        setCode(data.codeUDG)
+        setStatus(data.Status)
     }
+
+    
 
     const Check = async (nombre, codigo) => {
         setName(nombre)
@@ -137,8 +153,7 @@ export const Checkusers = () => {
                                     <th scope="col">Codigo</th>
                                     <th scope="col">Nombre</th>                              
                                     <th scope="col">Correo</th>
-                                    <th scope="col">Acciones</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">seleccionar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,10 +163,7 @@ export const Checkusers = () => {
                                         <td>{user.fullName}</td>
                                         <td>{user.email}</td>
                                         <td className="text-center">
-                                        <button onClick={() => select(user.fullName, user.codeUDG)} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faEye} /></button>
-                                            <button onClick={() => Check(user.fullName, user.codeUDG)} className="btn btn-success btn-sm "><FontAwesomeIcon icon={faCheck} /></button>
-                                            <button onClick={() => Ban(user.codeUDG)} className="btn btn-danger btn-sm "><FontAwesomeIcon icon={faBan} /></button>
-                                            
+                                        <button onClick={() => select(user.fullName, user.codeUDG, user.Status)} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faEye} /></button>                                           
                                         </td>
                                     </tr>
                                 ))}
@@ -199,7 +211,7 @@ export const Checkusers = () => {
                         </div>
                         <div className="Status mt-4">
                             <label className="form-label" htmlFor="readOnlyInput">Status:</label>
-                            <input className="form-control" value={Status} id="readOnlyInput" type="text" placeholder="Ninguno" readOnly />
+                            <input className="form-control" value={status} id="readOnlyInput" type="text" placeholder="Ninguno" readOnly />
                         </div>
                         <div className="Codigo">
                             <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo:</label>
@@ -208,23 +220,11 @@ export const Checkusers = () => {
 
                         <div className="card mt-4">
                             <div className="card-body">
-                                <p id="p1" className="card-text">Materias asignadas al profesor:
-                                    <br />
-                                    {quick[0] === undefined ? '-' : quick[0].map(elemento => (<span className="badge rounded-pill bg-warning text-primary" key={elemento.courseName}>{elemento.courseName}</span>))}
+                                
+                                <p className="card-text text-center"> <Link to="/viewfiles">
+                                    <button onClick={Check} className="btn btn-success text-black" type="button">Aceptar</button>
+                                    <button onClick={Ban} className="btn btn-danger text-black" type="button">Denegar</button></Link> 
                                 </p>
-
-                                <p className="card-text">Ultima evidencia registrada :
-                                    <br />
-                                    {quick[1] === undefined ? '-' : quick[1].map(elemento => (<span className="badge rounded-pill bg-warning text-primary" key={elemento.lastdate}>{elemento.lastdate}</span>))}
-                                </p>
-
-                                <p className="card-text">Evidencias totales :
-                                    <br />
-                                    {quick[2] === undefined ? '-' : quick[2].map(elemento => (<span className="badge rounded-pill bg-warning text-primary" key={elemento.total}>{elemento.total}</span>))}
-                                </p>
-
-                                <hr />
-                                <p className="card-text text-center"> <Link to="/viewfiles"><button onClick={temp} className="btn btn-warning text-black" type="button">Ver Archivos</button></Link> </p>
                             </div>
                         </div>
                         

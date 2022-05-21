@@ -166,7 +166,7 @@ def profile():
         # fetch
         cursor = mysql.connection.cursor()
         cursor.execute(
-            'SELECT `users`.`codeUDG`, `users`.`fullName`, `users`.`email`, `users`.`role`FROM `users` WHERE codeUDG = %s', (code,))
+            'SELECT `users`.`codeUDG`, `users`.`fullName`, `users`.`email`, `users`.`role`, `users`.`Status` FROM `users` WHERE codeUDG = %s', (code,))
         res = cursor.fetchone()
 
         return make_response(jsonify(res), 200)
@@ -426,6 +426,37 @@ def viewAllFiles():
         return make_response(jsonify(res))
     return make_response(jsonify(d), 401)
 
+@app.route('/quickvalidacion/<codigo>', methods=['GET'])
+def quickvalidacion(codigo):
+    a = 'Code Undefined'
+    if codigo != None:
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            'SELECT `users`.`codeUDG`, `users`.`fullName`, `users`.`email`, `users`.`role`, `users`.`Status`FROM `users` WHERE codeUDG = %s', (code,))
+        res = cursor.fetchone()
+
+        return make_response(jsonify(res), 200)
+    else:
+        return make_response(jsonify(a), 400)
+
+
+
+
+
+
+
+
+def definirStatus(codigo):
+    a = 'Code Undefined'
+    if codigo != None:
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            'SELECT Status FROM users WHERE codeUDG = %s', (codigo,))
+        status = cursor.fetchall()
+        return status
+    else:
+        return make_response(jsonify(a), 400)
+
 @app.route('/quickview/<codigo>', methods=['GET'])
 def quickCourse(codigo):
     a = 'Code Undefined'
@@ -443,6 +474,7 @@ def quickCourse(codigo):
     else:
         return make_response(jsonify(a), 400)
 
+        
 def quickEvidence(codigo):
     a = 'Code Undefined'
     if codigo != None:
