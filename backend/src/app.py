@@ -332,8 +332,13 @@ def download_report():
 def getTeacher():
      if request.method == 'POST':
         code = request.json['codigo']
+        cycle = request.json['cycleSelect']
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT files.date, files.cycle, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s', (code,))
+        if not cycle:
+            cursor.execute('SELECT files.date, files.cycle, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s', (code,))
+        else:
+            cursor.execute('SELECT fi.date, fi.id, fi.idTeachers, fi.courseName, fi.evidenceType, fi.shift, fi.fileName' +
+                            ' FROM files fi inner join cycles cy on fi.cycle = cy.id WHERE idTeachers = %s and cy.id = %s', (code, cycle))  
         res = cursor.fetchall()
         return make_response(jsonify(res), 200)
 

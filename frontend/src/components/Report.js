@@ -13,7 +13,6 @@ export const Report = () => {
   const id = sessionStorage.getItem("id");
   const em = sessionStorage.getItem("email")
   const [files, setFiles] = useState([]);
-  const [filteredFiles, setFilteredFiles] = useState([]);
   const [cycles, setCycles] = useState([]);
   const [cycleSelect, setCycleSelect] = useState('')
 
@@ -28,6 +27,7 @@ export const Report = () => {
       },
       body: JSON.stringify({
         codigo: id,
+        cycleSelect: cycleSelect,
       }),
     };
 
@@ -103,21 +103,19 @@ export const Report = () => {
 
   const captureCycle = async (e) => {
     e.preventDefault();
-    console.log(cycleSelect);
-    filesFilter();
-    console.log(filesFilter());
+    await getFiles();
   }
  
-  function filesFilter() {
-    const filesArray = [];
-    for (var file in files) {
-      if (files[file].cycle === cycleSelect) {
-        filesArray.push(files[file]);
-      }
-    }
-    setFilteredFiles(filesArray);
-    return;
-  }
+  // function filesFilter() {
+  //   const filesArray = [];
+  //   for (var file in files) {
+  //     if (files[file].cycle === cycleSelect) {
+  //       filesArray.push(files[file]);
+  //     }
+  //   }
+  //   setFilteredFiles(filesArray);
+  //   return;
+  // }
 
   return (
     <div>
@@ -126,9 +124,11 @@ export const Report = () => {
 
         <div className="row" style={{ maxWidth: '99vw' }}>
           <div onClick={captureCycle} className="col-md-6 mt-3">
-            <label htmlFor="cycle" className="form-label mt-4">Ciclo</label>
+            <div className="text-center row border bg-primary mt-5">
+              <h3 className="text-white p-2 m-1">ciclo</h3>
+            </div>
             <select onChange={e => setCycleSelect(e.target.selectedIndex)} className="form-select" name="cycle" id="cycle" required>
-              <option defaultValue="0"></option>
+              <option defaultValue="0">Todos</option>
               {
                 cycles.map(cycle => (
                   <option key={cycle.id} value={cycle.id}> {cycle.cycle}</option>
@@ -149,7 +149,7 @@ export const Report = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredFiles.map(item => (
+                {files.map(item => (
                   <tr key={item.id}>
                     <td>{item.shift}</td>
                     <td>{item.evidenceType}</td>
