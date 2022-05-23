@@ -20,6 +20,7 @@ export const Checkusers = () => {
 
     const getUsers = async () => {
 
+        
         const opts = {
             method: 'GET',
             mode: 'cors',
@@ -37,7 +38,7 @@ export const Checkusers = () => {
     }, [])
     
 
-    const select = async (nombre, codigo ) => {
+    const select = async ( codigo ) => {
 
         const opts = {
             method: 'POST',
@@ -61,37 +62,56 @@ export const Checkusers = () => {
 
     
 
-    const Check = async (nombre, codigo) => {
-        setName(nombre)
-        setCode(codigo)
-        const res = await fetch(`${API}/validar`, {
+    const Check = async (codigo) => {
+        const opts = {
             method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 codigo: codigo,
-                nombre: nombre,
-                Status: 1
+                status: "Aceptado"
             })
-        })  
+        };
+
+        const res = await fetch(`${API}/validar`, opts)
+        const data = await res.json()
  
+        setName(data.fullName)
+        setCode(data.codeUDG)
+        setStatus(data.Status)
+
+
+        if (res.status === 200) {
+            window.alert(data);
+            window.location.href = "/"
+        } else {
+            window.alert(data);
+        }
     }
 
-    const Ban = async (nombre, codigo) => {
-        setName(nombre)
-        setCode(codigo)
-        const res = await fetch(`${API}/validar`, {
+    const Ban = async (codigo) => {
+        const opts = {
             method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 codigo: codigo,
-                nombre: nombre,
-                Status: 0
+                status: "Denegado"
             })
-        })  
+        };
+
+        const res = await fetch(`${API}/novalidar`, opts)
+        const data = await res.json()
+ 
+        setName(data.fullName)
+        setCode(data.codeUDG)
+        setStatus(data.Status)
     }
 
 
@@ -153,7 +173,7 @@ export const Checkusers = () => {
                                     <th scope="col">Codigo</th>
                                     <th scope="col">Nombre</th>                              
                                     <th scope="col">Correo</th>
-                                    <th scope="col">seleccionar</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,7 +183,9 @@ export const Checkusers = () => {
                                         <td>{user.fullName}</td>
                                         <td>{user.email}</td>
                                         <td className="text-center">
-                                        <button onClick={() => select(user.fullName, user.codeUDG, user.Status)} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faEye} /></button>                                           
+                                        <button onClick={() => Check(user.codeUDG)} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faCheck} /></button> 
+                                        <button onClick={() => select(user.codeUDG)} className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faEye} /></button>        
+                                        <button onClick={() => Ban(user.codeUDG)} className="btn btn-danger btn-sm"><FontAwesomeIcon icon={faBan} /></button>                                      
                                         </td>
                                     </tr>
                                 ))}
@@ -220,11 +242,6 @@ export const Checkusers = () => {
 
                         <div className="card mt-4">
                             <div className="card-body">
-                                
-                                <p className="card-text text-center"> <Link to="/viewfiles">
-                                    <button onClick={Check} className="btn btn-success text-black" type="button">Aceptar</button>
-                                    <button onClick={Ban} className="btn btn-danger text-black" type="button">Denegar</button></Link> 
-                                </p>
                             </div>
                         </div>
                         

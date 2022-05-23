@@ -41,7 +41,7 @@ def login():
     if request.method == 'POST':
         email = request.json['correo']
         password = request.json['contraseña'].encode('utf-8')
-        Status = 1
+        Status = "Aceptado"
 
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
@@ -54,11 +54,7 @@ def login():
         if correo is None:
             return make_response(jsonify(d), 401)
         
-
-        
-       
-        
-        
+         
 
         hashed = str(correo['password']).encode('utf-8')
         estatus = bcrypt.checkpw(password, hashed)
@@ -88,28 +84,10 @@ def logout():
 
     return make_response(jsonify(session))
 
-@app.route('/validar', methods=['POST'])
-def validar():
-    a = 'Validacion Actualizada con exito!'
-    b = 'La validacion ya fue realizada'
-    if request.method == 'POST':
-        code = request.json['codigo']
-        name = request.json['nombre']
-        Status = request.json['Status']
 
 
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM users WHERE fullName = %s AND Status = %s', (name,Status))
-        status = cursor.fetchall()
+      
 
-        if status:
-            return make_response(jsonify(b), 200)
-        else:
-            cursor.execute('UPDATE `users` SET `Status`=%s', (code, ))
-            mysql.connection.commit()
-            
-    
-    
 
 
 @app.route('/register', methods=['POST'])
@@ -170,6 +148,37 @@ def profile():
         res = cursor.fetchone()
 
         return make_response(jsonify(res), 200)
+
+@app.route('/validar', methods=['POST'])
+def validar():
+    a = "Usuario validado con exito"
+    b = "Usuario ya actualizado"
+    if request.method == 'POST':
+        code = request.json['codigo']
+        status = request.json['status']
+        if status == "Aceptado": 
+            cursor = mysql.connection.cursor()
+            cursor.execute('UPDATE `users` SET `Status`= %s WHERE codeUDG = %s',(status,code))
+            res = cursor.fetchone()
+            return make_response(jsonify(a), 200)
+        else:
+            return make_response(jsonify(res), 200)
+
+
+@app.route('/novalidar', methods=['POST'])
+def novalidar():
+    a = "Usuario no validado con exito"
+    b = "Usuario ya actualizado"
+    if request.method == 'POST':
+        code = request.json['codigo']
+        status = request.json['status']
+        if status == "Denegado": 
+            cursor = mysql.connection.cursor()
+            cursor.execute('UPDATE `users` SET `Status`= %s WHERE codeUDG = %s',(status,code))
+            res = cursor.fetchone()
+            return make_response(jsonify(a), 200)
+        else:
+            return make_response(jsonify(b), 200)               
 
 
 
@@ -447,10 +456,6 @@ def quickvalidacion(codigo):
 
 
 
-
-
-
-
 def definirStatus(codigo):
     a = 'Code Undefined'
     if codigo != None:
@@ -462,22 +467,7 @@ def definirStatus(codigo):
     else:
         return make_response(jsonify(a), 400)
 
-@app.route('/quickview/<codigo>', methods=['GET'])
-def quickCourse(codigo):
-    a = 'Code Undefined'
-    lst = []
-    if codigo != None:
-        cursor = mysql.connection.cursor()
-        cursor.execute(
-            'SELECT DISTINCT courseName FROM files WHERE idTeachers = %s', (codigo,))
-        res = cursor.fetchall()
-        for m in res:
-            lst.append(m)
-        evidence = quickEvidence(codigo)
-        total = quickTotal(codigo)
-        return make_response(jsonify(lst, evidence, total), 200)
-    else:
-        return make_response(jsonify(a), 400)
+
 
         
 def quickEvidence(codigo):

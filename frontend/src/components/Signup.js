@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const API = process.env.REACT_APP_API;
 
@@ -28,14 +28,14 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
-                Status: 0
+                Status: "Denegado"
             })
         })
         const data = await res.text()
-        if (res.status === 200){
+        if (res.status === 200) {
             window.alert(data);
             window.location.href = "/"
-        }else{
+        } else {
             window.alert(data);
         }
 
@@ -90,20 +90,23 @@ export const Signup = () => {
                         </div>
 
                         <div className="col-md-6">
-                            <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica tu rol</label>
-                            <select defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
-                                <option value='0'>Escoge una opcion</option>
-                                <option value='1'>Jefe de Departamento</option>
-                                <option value='2'>Maestro</option>
-                                <option value='3'>Presidente de academia (Ingenieria de Software)</option>
-                                <option value='4'>Presidente de academia (Programacion Avanzada)</option>
-                                <option value='5'>Presidente de academia (Gestion de datos)</option>
-                                <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
-                            </select>
-                            <button onClick={() => roles()}  className="btn btn-primary btn-sm"><FontAwesomeIcon icon={faPlus} /></button>
-                        </div>
-                             
 
+                            <label htmlFor="exampleSelect1" className="form-label mt-4 ">Especifica tu(s) rol(es)</label>
+                          
+                          <form defaultValue='Denegado' id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
+                            <input type="checkbox"  value="1" name="checkbox[]"/>Jefe de Departamento
+                                <br /><input type="checkbox"  value="2" name="checkbox[]"/>Maestro
+                                <br /> <input type="checkbox"  value="3" name="checkbox[]"/>Presidente de Academia (Ingenieria de Software)
+                               <br/><br/> <input type="button" value="Mostrar" className="btn btn-primary" onClick="contarSeleccionados()"/>
+                           </form>
+                        </div>
+                        
+                    <div className="col-md-6">
+                        <br /> <input type="checkbox"  value="4" name="checkbox[]"/>Presidente de Academia (Programacion Avanzada)
+                        <br /> <input type="checkbox"  value="5" name="checkbox[]"/>Presidente de Academia (Gestion de Datos)
+                        <br /> <input type="checkbox"  value="6"name="checkbox[]"/>Presidente de Academia (Gestion De Tecnologias De La Informacion)  
+                    </div>
+                     
 
 
                         <div className="text-center mt-4">
@@ -118,22 +121,6 @@ export const Signup = () => {
         </div>
     )
 
-
-    const roles = async (codigo) => {
-
-        <div className="col-md-6">
-        <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica tu rol</label>
-        <select defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
-            <option value='0'>Escoge una opcion</option>
-            <option value='1'>Jefe de Departamento</option>
-            <option value='2'>Maestro</option>
-            <option value='3'>Presidente de academia (Ingenieria de Software)</option>
-            <option value='4'>Presidente de academia (Programacion Avanzada)</option>
-            <option value='5'>Presidente de academia (Gestion de datos)</option>
-            <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
-        </select>
-    </div>
-        };
 
 
 }
