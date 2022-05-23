@@ -131,16 +131,16 @@ export const Signup = () => {
                             <label htmlFor="exampleSelect1" className="form-label mt-4 ">Especifica tu(s) rol(es)</label>
                           
                          
-                            <br /><input type="checkbox"  value="1" name="checkbox[]" onChange={e => console.log(e.target.value)}/>Jefe de Departamento
-                                <br /><input type="checkbox"  value="2" name="checkbox[]" onChange={e => console.log(e.target.value)}/>Maestro
-                                <br /> <input type="checkbox"  value="3" name="checkbox[]" onChange={e => console.log(e.target.value)}/>Presidente de Academia (Ingenieria de Software)
+                            <br /><input type="checkbox"  value="1" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Jefe de Departamento
+                                <br /><input type="checkbox"  value="2" name="checkbox[]" onChange={e => setRol(e.target.value)}(e.target.value)}/>Maestro
+                                <br /> <input type="checkbox"  value="3" name="checkbox[]" onChange={e => setRol(e.target.value)}(e.target.value)}/>Presidente de Academia (Ingenieria de Software)
                            
                         </div>
                         
                     <div className="col-md-6">
-                        <br /> <input type="checkbox"  value="4" name="checkbox[]" onChange={e => console.log(e.target.value)}/>Presidente de Academia (Programacion Avanzada)
-                        <br /> <input type="checkbox"  value="5" name="checkbox[]" onChange={e => console.log(e.target.value)}/>Presidente de Academia (Gestion de Datos)
-                        <br /> <input type="checkbox"  value="6"name="checkbox[]" onChange={e => console.log(e.target.value)}/>Presidente de Academia (Gestion De Tecnologias De La Informacion)  
+                        <br /> <input type="checkbox"  value="4" name="checkbox[]" onChange={e => setRol(e.target.value)}(e.target.value)}/>Presidente de Academia (Programacion Avanzada)
+                        <br /> <input type="checkbox"  value="5" name="checkbox[]" onChange={e => setRol(e.target.value)}(e.target.value)}/>Presidente de Academia (Gestion de Datos)
+                        <br /> <input type="checkbox"  value="6"name="checkbox[]" onChange={e => setRol(e.target.value)}(e.target.value)}/>Presidente de Academia (Gestion De Tecnologias De La Informacion)  
                     </div>
                      
 
