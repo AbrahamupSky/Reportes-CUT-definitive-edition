@@ -27,7 +27,7 @@ export const Checkusers = () => {
             credentials: 'include',
         };
 
-        const res = await fetch(`${API}/users`, opts)
+        const res = await fetch(`${API}/userschecking`, opts)
         const data = await res.json();
         setPaginated(_(data).slice(0).take(pageSize).value());
         setUsers(data)
@@ -112,6 +112,14 @@ export const Checkusers = () => {
         setName(data.fullName)
         setCode(data.codeUDG)
         setStatus(data.Status)
+
+        if (res.status === 200) {
+            window.alert(data);
+            window.location.href = "/"
+        } else {
+            window.alert(data);
+        }
+        
     }
 
 
@@ -238,13 +246,7 @@ export const Checkusers = () => {
                         <div className="Codigo">
                             <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo:</label>
                             <input className="form-control" value={code} id="readOnlyInput" type="text" placeholder="Ninguno" readOnly />
-                        </div>
-
-                        <div className="card mt-4">
-                            <div className="card-body">
-                            </div>
-                        </div>
-                        
+                        </div>                   
                     </div>
 
                 </div>

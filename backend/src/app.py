@@ -128,8 +128,8 @@ def register():
         elif not re.match(r'^["1"|"2"|"3"|"4"|"5"|"6"]+$', json.dumps(role)):
             return make_response(jsonify(f), 400)
         else:
-            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s)', (code, name,
-                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role,Status))
+            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s,%s)', (code, name,
+                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role, Status))
             mysql.connection.commit()
 
     return make_response(jsonify(a), 200)
@@ -152,7 +152,7 @@ def profile():
 @app.route('/validar', methods=['POST'])
 def validar():
     a = "Usuario validado con exito"
-    b = "Usuario ya actualizado"
+    b = "Error al actualizar"
     if request.method == 'POST':
         code = request.json['codigo']
         status = request.json['status']
@@ -162,13 +162,13 @@ def validar():
             res = cursor.fetchone()
             return make_response(jsonify(a), 200)
         else:
-            return make_response(jsonify(res), 200)
+            return make_response(jsonify(b), 200)
 
 
 @app.route('/novalidar', methods=['POST'])
 def novalidar():
     a = "Usuario no validado con exito"
-    b = "Usuario ya actualizado"
+    b = "Error al actualizar"
     if request.method == 'POST':
         code = request.json['codigo']
         status = request.json['status']
@@ -391,6 +391,24 @@ def users():
         cursor = mysql.connection.cursor()
         cursor.execute(
             'SELECT users.codeUDG, users.fullName, users.email FROM users WHERE role = 2 ORDER BY users.fullName ASC')
+        res = cursor.fetchall()
+
+        for u in res:
+            users.append(u)
+
+        return make_response(jsonify(users))
+
+    return make_response(jsonify(d), 401)
+
+@app.route('/userschecking')
+def userschecking():
+    d = 'Necesitas iniciar sesion para ver el contenido'
+    if 'loggedin' in session:
+
+        users = []
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            'SELECT users.codeUDG, users.fullName, users.email FROM users ORDER BY users.fullName ASC')
         res = cursor.fetchall()
 
         for u in res:
