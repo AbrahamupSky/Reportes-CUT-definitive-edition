@@ -105,6 +105,8 @@ def register():
         email = request.json['email']
         password = request.json['contraseña']
         role = request.json['role']
+        Status = request.json['status']
+
 
         # validacion en db sobre codigo
         cursor = mysql.connection.cursor()
@@ -126,8 +128,8 @@ def register():
         elif not re.match(r'^["1"|"2"|"3"|"4"|"5"|"6"]+$', json.dumps(role)):
             return make_response(jsonify(f), 400)
         else:
-            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s)', (code, name,
-                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role))
+            cursor.execute('INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s)', (code, name,
+                           email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), role, Status))
             mysql.connection.commit()
 
     return make_response(jsonify(a), 200)

@@ -27,6 +27,7 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
+                status: "Denegado"
                
             })
         })
