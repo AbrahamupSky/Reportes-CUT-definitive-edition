@@ -1,45 +1,9 @@
 import React, { useState } from 'react'
 import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import ReactDOM from "react-dom";
+
 
 const API = process.env.REACT_APP_API;
-
-
-function App() {
-    // State with list of all checked item
-    const [checked, setChecked] = useState([]);
-    const checkList = ["Apple", "Banana", "Tea", "Coffee"];
-  
-    // Add/Remove checked item from list
-    const handleCheck = (event) => {
-      var updatedList = [...checked];
-      if (event.target.checked) {
-        updatedList = [...checked, event.target.value];
-      } else {
-        updatedList.splice(checked.indexOf(event.target.value), 1);
-      }
-      setChecked(updatedList);
-    };
-  
-    // Generate string of checked items
-    const checkedItems = checked.length
-      ? checked.reduce((total, item) => {
-          return total + ", " + item;
-        })
-      : "";
-  
-    // Return classes based on whether item is checked
-    var isChecked = (item) =>
-      checked.includes(item) ? "checked-item" : "not-checked-item";
-    }  
-
-    function checkValue(e) {
-        var value = e.target.value;
-        console.log("You selected " + value);
-      }
 
 export const Signup = () => {
     const [nombre, setNombre] = useState('')
@@ -63,21 +27,19 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
-                Status: "Denegado"
+               
             })
         })
         const data = await res.text()
-        if (res.status === 200) {
+        if (res.status === 200){
             window.alert(data);
             window.location.href = "/"
-        } else {
+        }else{
             window.alert(data);
         }
 
 
     }
-
-    
 
     return (
         <div>
@@ -127,23 +89,21 @@ export const Signup = () => {
                         </div>
 
                         <div className="col-md-6">
-
-                            <label htmlFor="exampleSelect1" className="form-label mt-4 ">Especifica tu(s) rol(es)</label>
-                          
-                         
-                            <br /><input type="checkbox"  value="1" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Jefe de Departamento
-                                <br /><input type="checkbox"  value="2" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Maestro
-                                <br /> <input type="checkbox"  value="3" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Presidente de Academia (Ingenieria de Software)
-                           
+                            <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica tu rol</label>
+                            <select defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
+                                <option value='0'>Escoge una opcion</option>
+                                <option value='1'>Jefe de Departamento</option>
+                                <option value='2'>Maestro</option>
+                                <option value='3'>Presidente de academia (Ingenieria de Software)</option>
+                                <option value='4'>Presidente de academia (Programacion Avanzada)</option>
+                                <option value='5'>Presidente de academia (Gestion de datos)</option>
+                                <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
+                            </select>
                         </div>
-                        
-                    <div className="col-md-6">
-                        <br /> <input type="checkbox"  value="4" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Presidente de Academia (Programacion Avanzada)
-                        <br /> <input type="checkbox"  value="5" name="checkbox[]" onChange={e => setRol(e.target.value)}/>Presidente de Academia (Gestion de Datos)
-                        <br /> <input type="checkbox"  value="6"name="checkbox[]" onChange={e => setRol(e.target.value)}/>Presidente de Academia (Gestion De Tecnologias De La Informacion)  
-                    </div>
-                     
 
+                  
+
+                    
 
                         <div className="text-center mt-4">
                             <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrarse</button>
@@ -156,7 +116,4 @@ export const Signup = () => {
             }
         </div>
     )
-
-
-
 }
