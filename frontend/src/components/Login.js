@@ -75,7 +75,7 @@ export const Login = () => {
                             </button>
                         </div>
                         <div className="form-group pt-3 text-center">
-                            <Link className="nav-link" to="/">¿Olvidaste tu contraseña?</Link>
+                        <Link  className="nav-link" to="/Recovery_pass">¿Olvidaste tu contraseña?</Link>
                         </div>
 
                     </form>

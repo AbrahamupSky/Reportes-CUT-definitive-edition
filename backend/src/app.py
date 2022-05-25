@@ -7,6 +7,10 @@ import bcrypt
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import io
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+import random
 
 
 app = Flask(__name__)
@@ -73,6 +77,59 @@ def login():
             return make_response(jsonify(d), 401)
 
     return make_response(jsonify(session), 200)
+
+@app.route('/recovery_Pass', methods=['POST'])
+def recovery_Password():
+    
+    m='Correo no encontrado'
+    if request.method == 'POST':
+        email = request.json['email']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT email FROM users WHERE email = %s', (email,))
+        Ema = cursor.fetchone()
+        e = ""
+        if Ema is None:
+            return make_response(jsonify(m), 401)
+        else : e = Ema['email']
+    token = random.randint(1000, 9000)
+    tok = str(token)
+    msg = MIMEMultipart()
+    message = "Este es tu token de verificacion, usalo para actualizar tu contraseña: "+tok
+    password = "cutonala123"
+    cursor.execute('UPDATE users SET password = %s WHERE email = %s',(tok,e)) 
+    mysql.connection.commit()
+    msg['From'] = "cutonalaevidencias@gmail.com"
+    msg['To'] = e
+    msg['Subject'] = "Recuperacion de contraseña"
+    msg.attach(MIMEText(message, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com: 587')
+    server.starttls()
+    server.login(msg['From'], password)
+    server.sendmail(msg['From'], msg['To'], msg.as_string())
+    server.quit()
+    return make_response(jsonify("Correo Enviado"), 200)
+
+
+@app.route('/changePs', methods=['post'])
+def ChangeP():
+
+    m='El correo y token no coinciden'
+    email = request.json['email']
+    if request.method == 'POST':
+        email = request.json['email']
+        contraseña = request.json['contraseña']
+        token = request.json['token']
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT email FROM users WHERE password = %s and email = %s', (token,email))
+        Ema = cursor.fetchone()
+        e = ""
+        if Ema is None:
+            return make_response(jsonify(m), 401)
+        else :
+            cursor.execute('UPDATE users SET password = %s WHERE email = %s', (bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt()),email))
+            mysql.connection.commit()
+            return  make_response(jsonify("Contraseña Actualizada"), 200)
 
 
 @app.route('/logout', methods=['GET'])

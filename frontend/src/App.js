@@ -13,8 +13,9 @@ import {Error404} from './components/Error404';
 import {Report} from './components/Report'
 import {Audit} from './components/Audit'
 import {ViewFiles} from './components/ViewFiles';
-import {Checkusers} from './components/Checkusers';
-
+import {Checkusers} from './components/checkusers';
+import { Recovery_Pass } from './components/Recovery_Pass';
+import { ChangePass } from './components/ChangePass';
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Signup} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/Recovery_pass" component={Recovery_Pass} />
+          <Route exact path="/ChangePass" component={ChangePass} />
           <PrivateRoute exact path="/checkusers" component={Checkusers} />
           <PrivateRoute exact path="/index" component={Index} />
           <PrivateRoute exact path="/upload" component={Uploads} />
