@@ -88,6 +88,9 @@ export const Ybarra = () => {
             <li id='validar' className=" nav-item">
               <Link className="nav-link" to="/checkusers">Validar Usuarios</Link>
             </li>
+            <li id='cycle' className=" nav-item">
+              <Link className="nav-link" to="/Cycles">Gestion de ciclos</Link>
+            </li>
           </ul>
           <div className="logout">
             <button type="button" onClick={kill} className="btn btn-outline-warning btn-sm">Cerrar Sesion</button>

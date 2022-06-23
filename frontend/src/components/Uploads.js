@@ -8,11 +8,25 @@ export const Uploads = () => {
     const [academy, setAcademy] = useState([])
     const [course, setCourse] = useState([])
     const [select, setSelect] = useState('')
-
+    const [cycles, setCycles] = useState([]);
+    
     //Variable de session
     const id = sessionStorage.getItem("id")
     const rol = sessionStorage.getItem("Rol")
 
+    const getCycles = async () => {
+        const opts = {
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const res = await fetch(`${API}/getSchoolCycles`, opts);
+        const data = await res.json();
+        setCycles(data);
+    }
 
     const getAcademy = async () => {
         const opts = {
@@ -56,6 +70,7 @@ export const Uploads = () => {
     }
 
     useEffect(() => {
+        getCycles();
         getAcademy();
     }, []);
 
@@ -115,14 +130,26 @@ export const Uploads = () => {
                             <fieldset>
                                 <label className="form-label mt-4" htmlFor="readOnlyInput">Turno de la materia</label>
                                 <select className="form-select" id="shift" name="shift" required>
-                                    <option defaultValue="0"></option>
+                                    <option ></option>
                                     <option value="Matutino">Matutino</option>
                                     <option value="Vespertino">Vespertino</option>
                                 </select>
                             </fieldset>
                         </div>
 
-                        <div className="col-md-7">
+                        <div className="form-group col-md-2">
+                            <fieldset>
+                                <label className="form-label mt-4" htmlFor="readOnlyInput">Ciclo</label>
+                                <select className="form-select" id="cycle" name="cycle" required>
+                                    <option defaultValue="0"></option>
+                                    {cycles.map(cycle => (
+                                        <option key={cycle.id} value={cycle.id}> {cycle.cycle}</option>
+                                    ))}
+                                </select>
+                            </fieldset>
+                        </div>
+
+                        <div className="col-md-5">
 
                             <label htmlFor="formFile" className="form-label mt-4">Selecciona tu archivo</label>
                             <input className="form-control" type="file" name="formFile" id="formFile" multiple required />

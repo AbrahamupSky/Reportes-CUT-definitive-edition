@@ -124,7 +124,7 @@ export const Report = () => {
 
         <div className="row" style={{ maxWidth: '99vw' }}>
           <div onClick={captureCycle} className="col-md-6 mt-3">
-            <div className="text-center row border bg-primary mt-5">
+            <div className="text-center row border bg-primary">
               <h3 className="text-white p-2 m-1">ciclo</h3>
             </div>
             <select onChange={e => setCycleSelect(e.target.selectedIndex)} className="form-select" name="cycle" id="cycle" required>
@@ -160,8 +160,6 @@ export const Report = () => {
                     </td>
                     
                     <td><button onClick={() => window.open(`${API}/fileView/${item.id}`, '_blank')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
-
-                  
                   </tr>
                 ))}
               </tbody>

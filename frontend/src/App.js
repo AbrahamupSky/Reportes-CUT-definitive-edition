@@ -16,6 +16,7 @@ import {ViewFiles} from './components/ViewFiles';
 import {Checkusers} from './components/checkusers';
 import { Recovery_Pass } from './components/Recovery_Pass';
 import { ChangePass } from './components/ChangePass';
+import {Cycles} from './components/Cycles';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <PrivateRoute exact path="/report" component={Report} />
           <PrivateRoute exact path="/audit" component={Audit} />
           <PrivateRoute exact path="/viewfiles" component={ViewFiles} />
+          <PrivateRoute exact path="/Cycles" component={Cycles} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <Route path="*" component={Error404} />
         </Switch>

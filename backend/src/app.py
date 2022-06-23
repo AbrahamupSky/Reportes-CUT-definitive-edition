@@ -255,15 +255,7 @@ def uploads():
             evidenceType = request.form['evidenceType']
             shift = request.form['shift']
             date = datetime.now()
-            cycle = str(date.year) + "-A" if date.month < 8 else str(date.year) + "-B"
-
-            cy = mysql.connection.cursor()
-            cy.execute('SELECT * FROM cycles where cycle = %s', (cycle, ))
-            currentCycle = cy.fetchone()
-            idCycle = 0
-            
-            if currentCycle:
-                idCycle = currentCycle['id']
+            cycle = request.form['cycle']
 
             files = request.files.getlist('formFile')
             myList = []
@@ -277,7 +269,7 @@ def uploads():
 
                 cursor = mysql.connection.cursor()
                 cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
-                    'Null', date, idCycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
+                    'Null', date, cycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
                 mysql.connection.commit()
             return make_response(render_template('uploadDone.html', msg=myList), 200)
 
@@ -417,6 +409,18 @@ def getCycles():
         cycle = cursor.fetchall()
         return make_response(jsonify(cycle), 200)
         
+
+@ app.route('/addCycle', methods=['POST'])
+def addCycle():
+    c = 'Metodo no permitido'
+    if request.method == 'POST':
+        cycle = request.json['cycle']
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO cycles(`cycle`) VALUES (%s)', (cycle, ))
+        mysql.connection.commit()
+        return make_response(jsonify("El ciclo " + cycle + " fue agragado"), 200)
+    else:
+        return make_response(jsonify(c), 400)
 
 
 @app.route('/plot', methods=['POST'])
