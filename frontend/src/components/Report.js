@@ -16,6 +16,7 @@ export const Report = () => {
   const [cycles, setCycles] = useState([]);
   const [cycleSelect, setCycleSelect] = useState('')
 
+  //Se obtienen todos los archivos de la base de datos del usuario
   const getFiles = async () => {
 
     const opts = {
@@ -34,8 +35,10 @@ export const Report = () => {
     const res = await fetch(`${API}/getfiles`, opts);
     const data = await res.json();
     setFiles(data);
+    console.log(cycleSelect);
   }
 
+  //obtenemos todos los ciclos escolares
   const getCycles = async () => {
     const opts = {
       method: "POST",
@@ -46,8 +49,10 @@ export const Report = () => {
       },
     };
     const res = await fetch(`${API}/getSchoolCycles`, opts);
+    
     const data = await res.json();
     setCycles(data);
+    console.log(data);
   }
 
   useEffect(() => {
@@ -56,7 +61,7 @@ export const Report = () => {
   }, [])
 
 
-
+//Metodo para borrar los archivos
   const DeleFile = async (id) => {
     const userReponse = window.confirm('Estas Seguro de Eliminar este archivo?')
     if(userReponse){
@@ -69,6 +74,7 @@ export const Report = () => {
     }
   };
 
+  //Metodo para descargar el reporte de los archios subidos
   const Download = async () => {
 
     const opts = {
@@ -101,6 +107,7 @@ export const Report = () => {
 
   }
 
+  //
   const captureCycle = async (e) => {
     e.preventDefault();
     await getFiles();
@@ -127,7 +134,7 @@ export const Report = () => {
             <div className="text-center row border bg-primary">
               <h3 className="text-white p-2 m-1">ciclo</h3>
             </div>
-            <select onChange={e => setCycleSelect(e.target.selectedIndex)} className="form-select" name="cycle" id="cycle" required>
+            <select onChange={e => setCycleSelect(e.target.value)} className="form-select" name="cycle" id="cycle" required>
               <option defaultValue="0">Todos</option>
               {
                 cycles.map(cycle => (
@@ -135,6 +142,7 @@ export const Report = () => {
                 ))}
             </select>
           </div>
+
           <div className="TABLA  col-md-8 mt-3">
             <TableScrollbar height = "80vh">
             <table className="table table-bordered">

@@ -216,7 +216,7 @@ def validar():
         if status == "Aceptado": 
             cursor = mysql.connection.cursor()
             cursor.execute('UPDATE `users` SET `Status`= %s WHERE codeUDG = %s',(status,code))
-            res = cursor.fetchone()
+            mysql.connection.commit()
             return make_response(jsonify(a), 200)
         else:
             return make_response(jsonify(b), 200)
@@ -232,7 +232,7 @@ def novalidar():
         if status == "Denegado": 
             cursor = mysql.connection.cursor()
             cursor.execute('UPDATE `users` SET `Status`= %s WHERE codeUDG = %s',(status,code))
-            res = cursor.fetchone()
+            mysql.connection.commit()
             return make_response(jsonify(a), 200)
         else:
             return make_response(jsonify(b), 200)               
