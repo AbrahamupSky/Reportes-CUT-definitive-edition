@@ -16,9 +16,6 @@ export const Xbarra = () => (
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/register">Registrate</Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/about">About</Link>
               </li>
             </ul>

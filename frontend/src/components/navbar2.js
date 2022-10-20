@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 const API = process.env.REACT_APP_API;
 const rol = sessionStorage.getItem("Rol")
@@ -55,6 +55,11 @@ export const Ybarra = () => {
     }
 
   
+  function signup(){
+    if(rol === "2"){
+        window.alert('No tienes accesos aqui')
+    }
+  }
     
 
     
@@ -76,6 +81,9 @@ export const Ybarra = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/profile">Perfil</Link>
             </li>
+            <li className="nav-item">
+                <Link onClick={signup} className="nav-link" to="/register">Registrar</Link>
+              </li>
             <li className="nav-item">
               <Link onClick={click} className="nav-link" to="/viewfiles">Revision de archivos</Link>
             </li>
