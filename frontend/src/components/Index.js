@@ -8,22 +8,15 @@ export const Index = () => {
     const rol = sessionStorage.getItem("Rol")
 
     function buttonUpload() {
-        if (rol === "1") {
-            const element = document.getElementById("master");
-            element.remove();
-        }
+        
     }
 
     function buttonReport() {
-        if (rol === "1") {
-            window.alert('No tienes acceso aqui')
-        }
+        
     }
 
     function buttonAudit() {
-        if (rol === "2") {
-            window.alert('No tienes acceso aqui')
-        }
+        
     }
 
     function hiddendiv(){
