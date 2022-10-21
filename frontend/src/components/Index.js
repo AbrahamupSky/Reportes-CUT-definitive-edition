@@ -61,9 +61,6 @@ export const Index = () => {
                         <div className="text-center">
                             <Link to="/upload"><button onClick={buttonUpload} className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
                         </div>
-                        <div className="card-footer mt-3">
-                            <small className="text-muted">(Solo Maestros)</small>
-                        </div>
                     </div>
                 </div>
                 <div className="col Card2" id ="maestro2">
@@ -75,9 +72,6 @@ export const Index = () => {
                         </div>
                         <div className="text-center">
                             <Link to="/report"><button onClick={buttonReport} className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
-                        </div>
-                        <div className="card-footer mt-3">
-                            <small className="text-muted">(Solo Maestros)</small>
                         </div>
                     </div>
                 </div>
