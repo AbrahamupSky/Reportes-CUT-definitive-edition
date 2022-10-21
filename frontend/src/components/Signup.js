@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from "react-router-dom"
+//import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
 
 
@@ -60,8 +60,7 @@ export const Signup = () => {
     //em && em !== "" && em !== undefined ? <Redirect to="/index" /> :
     return (
         <div>
-            {rol1 === "2" ? <Redirect to="/index" />:
-            <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: '100%', height: '85vh', backgroundRepeat: 'no-repeat', }}>
+            {<div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: '100%', height: '85vh', backgroundRepeat: 'no-repeat', }}>
                 <div className="m-5 p-4 d-flex justify-content-center align-items-center " style={{ width: '80%' }}>
                     <form onSubmit={handelSubmit} className="row border border border-dark m-3 p-5 rounded" style={{ background: 'white' }}>
 
