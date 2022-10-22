@@ -15,7 +15,7 @@ export const Audit = () => {
     const [quick, setQuick] = useState([]) //Mapeo de la informacion de vista rapida
     const [paginated, setPaginated] = useState([]) //Mapeo de usuarios con slice()
     const [currentPage, setCurrentPage] = useState(1) //Mapeo de la navegacion
-    const pageSize = 6; //Tamaño de la tabla por pagina
+    const pageSize = 4; //Tamaño de la tabla por pagina
 
     const getUsers = async () => {
 
@@ -38,6 +38,8 @@ export const Audit = () => {
     const select = async (nombre, codigo) => {
         setName(nombre)
         setCode(codigo)
+        var aux = document.getElementById("ocultar");
+        aux.style.visibility = "visible";
 
         const res = await fetch(`${API}/quickview/${codigo}`)
         const data = await res.json()
@@ -73,8 +75,6 @@ export const Audit = () => {
         link.click();
         // Clean up and remove the link
         link.parentNode.removeChild(link);
-
-
     }
 
     const pagination = (pageNo) => {
@@ -166,7 +166,7 @@ export const Audit = () => {
 
                     </div>
 
-                    <div className="border border-dark col-md-3 mt-5 mb-5">
+                    <div className="border border-dark col-md-3 mt-5 mb-5" style={{ visibility: 'hidden' }} id="ocultar">
 
                         <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
                             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
