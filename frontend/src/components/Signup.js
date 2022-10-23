@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from "react-router-dom"
+//import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
 
 
@@ -11,7 +11,11 @@ export const Signup = () => {
     const [email, setEmail] = useState('')
     const [contraseña, setContraseña] = useState('')
     const [rol, setRol] = useState(0)
-    const em = sessionStorage.getItem("email")
+    const [areasActive,setareasActive] = useState(false)
+    const [form1Active,setForm1Active] = useState(false)
+    const [form2Active,setForm2Active] = useState(false)
+    const rol1 = sessionStorage.getItem("Rol")
+
 
     const handelSubmit = async (e) => {
         e.preventDefault()
@@ -42,9 +46,21 @@ export const Signup = () => {
 
     }
 
+    function selectArea(){
+        var f = document.getElementById("exampleSelect1")  
+
+        if(f.value ==="10"){
+            setareasActive(!areasActive)
+        }else if(areasActive){
+            setareasActive(!areasActive)
+            
+        }  
+    }
+
+    //em && em !== "" && em !== undefined ? <Redirect to="/index" /> :
     return (
         <div>
-            {em && em !== "" && em !== undefined ? <Redirect to="/index" /> : <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: '100%', height: '85vh', backgroundRepeat: 'no-repeat', }}>
+            {<div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: '100%', height: '85vh', backgroundRepeat: 'no-repeat', }}>
                 <div className="m-5 p-4 d-flex justify-content-center align-items-center " style={{ width: '80%' }}>
                     <form onSubmit={handelSubmit} className="row border border border-dark m-3 p-5 rounded" style={{ background: 'white' }}>
 
@@ -87,23 +103,38 @@ export const Signup = () => {
                                 className="form-control"
                                 placeholder="Contraseña"
                                 id="inputPassword" required />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica tu rol</label>
-                            <select defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
+                        </div>  
+                        {rol1 === "1" && !form1Active? setForm1Active(!form1Active):
+                        form1Active && <div className="col-md-6">
+                            <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica el rol</label>
+                            <select onChangeCapture={selectArea} defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
                                 <option value='0'>Escoge una opcion</option>
                                 <option value='1'>Jefe de Departamento</option>
                                 <option value='2'>Maestro</option>
-                                <option value='3'>Presidente de academia (Ingenieria de Software)</option>
-                                <option value='4'>Presidente de academia (Programacion Avanzada)</option>
-                                <option value='5'>Presidente de academia (Gestion de datos)</option>
-                                <option value='6'>Presidente de academia (Gestion De Tecnologias De Informacion)</option>
+                                <option value='10'>Presidente de academia</option>
                             </select>
                         </div>
-
-                  
-
+                        }
+                        {rol1 === "3" && !form2Active? setForm2Active(!form2Active):
+                        form2Active && <div className="col-md-6">
+                            <label htmlFor="exampleSelect3" className="form-label mt-4">Especifica el rol</label>
+                            <select defaultValue='2' className="form-select" id="exampleSelect3" onClick={e => setRol(e.target.value)} required>
+                                <option value='2'>Maestro</option>
+                            </select>
+                        </div>
+                        } 
+                        {
+                        areasActive && <div className="col-md-6">
+                            <label htmlFor="exampleSelect2" className="form-label mt-4">Especifica el area</label>
+                            <select defaultValue='0' className="form-select" id="exampleSelect2" onClick={e => setRol(e.target.value)} required>
+                                <option value='0'>Escoge una opcion</option>
+                                <option value='3'>Ingenieria de Software</option>
+                                <option value='4'>Programacion Avanzada</option>
+                                <option value='5'>Gestion de datos</option>
+                                <option value='6'>Gestion De Tecnologias De Informacion</option>
+                            </select>
+                        </div>
+                        }
                     
 
                         <div className="text-center mt-4">

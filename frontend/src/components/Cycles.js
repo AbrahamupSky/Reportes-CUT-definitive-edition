@@ -81,7 +81,7 @@ export const Cycles = () => {
 
     return (
         <div>
-            {rol === "1" ? <Redirect to="/index" /> :
+            {rol !== "1" ? <Redirect to="/index" /> :
 
                 <div className="row" style={{ maxWidth: '99vw' }}>
 

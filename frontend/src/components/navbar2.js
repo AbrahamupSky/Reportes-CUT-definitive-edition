@@ -1,14 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React,{ useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 
 const API = process.env.REACT_APP_API;
 const rol = sessionStorage.getItem("Rol")
 
 export const Ybarra = () => {
 
-
+  const [signupActive,setSignupActive] = useState(false)
+  const [cycleActive,setCycleActive] = useState(false)
+  const rol1 = sessionStorage.getItem("Rol")
   
-
 
   const kill = (e) => {
     const opts = {
@@ -47,22 +48,6 @@ export const Ybarra = () => {
       } 
     },10);
 
-
-  function click() {
-    if (rol === "2") {
-        window.alert('No tienes acceso aqui')
-      }
-    }
-
-  
-    
-
-    
-    
-    
-
-
-
   return (
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -77,9 +62,6 @@ export const Ybarra = () => {
               <Link className="nav-link" to="/profile">Perfil</Link>
             </li>
             <li className="nav-item">
-              <Link onClick={click} className="nav-link" to="/viewfiles">Revision de archivos</Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/index">Tutorial</Link>
             </li>
             <li className="nav-item">
@@ -88,9 +70,28 @@ export const Ybarra = () => {
             <li id='validar' className=" nav-item">
               <Link className="nav-link" to="/checkusers">Validar Usuarios</Link>
             </li>
-            <li id='cycle' className=" nav-item">
-              <Link className="nav-link" to="/Cycles">Gestion de ciclos</Link>
+            <li className="nav-item">
+              {rol1!=="2" && !signupActive? setSignupActive(!signupActive):
+                signupActive &&<div>
+                  <Link className="nav-link" to="/register">Registrar</Link>
+                </div>
+              }
             </li>
+            <li className="nav-item">
+              {rol1!=="2" && !signupActive? setSignupActive(!signupActive):
+                signupActive &&<div>
+                  <Link className="nav-link" to="/viewfiles">Revision de archivos</Link>
+                </div>
+              }
+            </li>
+            <li id='cycle' className=" nav-item">
+              {rol1==="1" && !cycleActive? setCycleActive(!cycleActive):
+                cycleActive && <div>
+                  <Link className="nav-link" to="/Cycles">Gestion de ciclos</Link>
+                </div>
+              }
+            </li>
+            
           </ul>
           <div className="logout">
             <button type="button" onClick={kill} className="btn btn-outline-warning btn-sm">Cerrar Sesion</button>
