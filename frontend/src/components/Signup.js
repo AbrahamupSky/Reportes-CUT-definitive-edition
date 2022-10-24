@@ -14,6 +14,7 @@ export const Signup = () => {
     const [areasActive,setareasActive] = useState(false)
     const [form1Active,setForm1Active] = useState(false)
     const [form2Active,setForm2Active] = useState(false)
+    const [contraseñaActive,setcontraseñaActive] = useState(false)
     const rol1 = sessionStorage.getItem("Rol")
 
 
@@ -31,7 +32,7 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
-                status: "Denegado"
+                status: "Aceptado"
                
             })
         })
@@ -94,8 +95,8 @@ export const Signup = () => {
                                 placeholder="Correo Institucional"
                                 id="inputEmail" required />
                         </div>
-
-                        <div className="col-md-6">
+                        { rol1==="7" && !contraseñaActive? setcontraseñaActive(!contraseñaActive):
+                        contraseñaActive && <div className="col-md-6">
                             <label htmlFor="inputPassword" className="form-label">Contraseña</label>
                             <input
                                 type="password"
@@ -104,6 +105,7 @@ export const Signup = () => {
                                 placeholder="Contraseña"
                                 id="inputPassword" required />
                         </div>  
+                        }
                         {rol1 === "1" && !form1Active? setForm1Active(!form1Active):
                         form1Active && <div className="col-md-6">
                             <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica el rol</label>
