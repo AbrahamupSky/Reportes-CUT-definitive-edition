@@ -37,10 +37,10 @@ export const Signup = () => {
         })
         const data = await res.text()
         if (res.status === 200){
-            window.alert(data);
+            window.swal(data, '', 'success');
             window.location.href = "/"
         }else{
-            window.alert(data);
+            window.swal(data, '', 'error');
         }
 
 
