@@ -137,7 +137,7 @@ export const ViewFiles = () => {
                                         <td>{user.evidenceType}</td>
                                         <td>{user.shift}</td>
                                         <td>{user.fileName}</td>
-                                        <td><button onClick={() => window.open(`${API}/fileView/${user.id}`, '_blank')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
+                                        <td><button onClick={() => window.open(`${API}/fileView/${user.id}`, '_blank','width = 600px','height = 900px')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
                                     </tr>
                                 ))}
 

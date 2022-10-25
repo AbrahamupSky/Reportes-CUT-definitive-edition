@@ -59,7 +59,7 @@ export const Profile = () => {
                         <h5 className="card-title text-center">Datos de la Cuenta</h5>
                         <div className="form-group">
                             <fieldset>
-                                <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo</label>
+                                <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo:</label>
                                 <input className="form-control" value={nombre} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
@@ -71,7 +71,7 @@ export const Profile = () => {
                         </div>
                         <div className="form-group">
                             <fieldset>
-                                <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo UdG</label>
+                                <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo UdeG</label>
                                 <input className="form-control" value={codigo} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
@@ -84,7 +84,7 @@ export const Profile = () => {
                         <div className="form-group">
                             <fieldset>
                                 <label className="form-label mt-2" htmlFor="readOnlyInput">Rol</label>
-                                <input className="form-control" value={rol} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
+                                <input className="form-control" value={rol} id="readOnlyInput" type="text" placeholder="Readonly input here..."/>
                             </fieldset>
                         </div>
                     </div>

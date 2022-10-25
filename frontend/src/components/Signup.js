@@ -2,6 +2,7 @@
 //import { Redirect } from "react-router-dom"
 import background from "../images/try.svg";
 
+//Comentario random
 
 const API = process.env.REACT_APP_API;
 
@@ -15,6 +16,7 @@ export const Signup = () => {
     const [form1Active,setForm1Active] = useState(false)
     const [form2Active,setForm2Active] = useState(false)
     const rol1 = sessionStorage.getItem("Rol")
+    const [contraseñaActive,setcontraseñaActive] = useState(false)
 
 
     const handelSubmit = async (e) => {
@@ -37,10 +39,10 @@ export const Signup = () => {
         })
         const data = await res.text()
         if (res.status === 200){
-            window.alert(data);
+            window.swal(data, '', 'success');
             window.location.href = "/"
         }else{
-            window.alert(data);
+            window.swal(data, '', 'error');
         }
 
 
@@ -95,7 +97,11 @@ export const Signup = () => {
                                 id="inputEmail" required />
                         </div>
 
-                        <div className="col-md-6">
+
+
+
+                        { rol1==="7" && !contraseñaActive? setcontraseñaActive(!contraseñaActive):
+                        contraseñaActive && <div className="col-md-6">
                             <label htmlFor="inputPassword" className="form-label">Contraseña</label>
                             <input
                                 type="password"
@@ -103,7 +109,12 @@ export const Signup = () => {
                                 className="form-control"
                                 placeholder="Contraseña"
                                 id="inputPassword" required />
-                        </div>  
+                        </div>
+                        }
+
+
+
+
                         {rol1 === "1" && !form1Active? setForm1Active(!form1Active):
                         form1Active && <div className="col-md-6">
                             <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica el rol</label>
