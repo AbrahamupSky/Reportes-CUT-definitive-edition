@@ -111,11 +111,7 @@ export const Signup = () => {
                                 id="inputPassword" required />
                         </div>
                         }
-
-
-
-
-                        {rol1 === "1" && !form1Active? setForm1Active(!form1Active):
+                        {rol1 === "1" || rol1 === "7" && !form1Active? setForm1Active(!form1Active):
                         form1Active && <div className="col-md-6">
                             <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica el rol</label>
                             <select onChangeCapture={selectArea} defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
