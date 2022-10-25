@@ -33,7 +33,7 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
-                status: "Aceptado"
+                status: "Denegado"
                
             })
         })
@@ -97,6 +97,9 @@ export const Signup = () => {
                                 id="inputEmail" required />
                         </div>
 
+
+
+
                         { rol1==="7" && !contraseñaActive? setcontraseñaActive(!contraseñaActive):
                         contraseñaActive && <div className="col-md-6">
                             <label htmlFor="inputPassword" className="form-label">Contraseña</label>
@@ -106,7 +109,7 @@ export const Signup = () => {
                                 className="form-control"
                                 placeholder="Contraseña"
                                 id="inputPassword" required />
-                        </div> 
+                        </div>
                         }
                         {rol1 === "1" || rol1 === "7" && !form1Active? setForm1Active(!form1Active):
                         form1Active && <div className="col-md-6">
