@@ -8,18 +8,6 @@ export const Index = () => {
     const rol = sessionStorage.getItem("Rol")
     const name =sessionStorage.getItem("name")
 
-    function buttonUpload() {
-        
-    }
-
-    function buttonReport() {
-        
-    }
-
-    function buttonAudit() {
-        
-    }
-
     function hiddendiv(){
         var master1 = document.getElementById("master");
         var master2 = document.getElementById("maestro");
@@ -60,7 +48,7 @@ export const Index = () => {
                             <p className="card-text">En este apartado los maestros podran acceder para subir las evidencias generadas en el transcurso del semestre. </p>
                         </div>
                         <div className="text-center">
-                            <Link to="/upload"><button onClick={buttonUpload} className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
+                            <Link to="/upload"><button className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
                         </div>
                     </div>
                 </div>
@@ -72,7 +60,7 @@ export const Index = () => {
                             <p className="card-text">Aqui podras generar el reporte de tus evidencias y actividades que has subido durante el semestre.</p>
                         </div>
                         <div className="text-center">
-                            <Link to="/report"><button onClick={buttonReport} className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
+                            <Link to="/report"><button className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
                         </div>
                     </div>
                 </div>
@@ -84,7 +72,7 @@ export const Index = () => {
                             <p className="card-text">Area designada para el Jefe de departamento para la revision de actividades y evidencias.</p>
                         </div>
                         <div className="text-center">
-                            <Link to="/audit"><button onClick={buttonAudit} className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
+                            <Link to="/audit"><button className="btn btn-outline-primary justify-content" type="button">Ir al sitio</button></Link>
                         </div>
                     </div>
                 </div>
