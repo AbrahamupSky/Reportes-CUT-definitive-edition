@@ -32,6 +32,7 @@ export const Login = () => {
             sessionStorage.setItem("email", data.email);
             sessionStorage.setItem("id", data.id)
             sessionStorage.setItem("Rol", data.Rol)
+            sessionStorage.setItem("name", data.name);
             window.location.href = "/index"
         }
         else if (res.status === 401) {

@@ -70,6 +70,7 @@ def login():
                 session['id'] = correo['codeUDG']
                 session['email'] = correo['email']
                 session['Rol'] = correo['role']
+                session['name'] = correo['fullName']
             else:
                 return make_response(jsonify(c), 401)
                 
