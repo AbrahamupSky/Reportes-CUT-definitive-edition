@@ -6,6 +6,7 @@ import card3 from '../images/Card3.svg';
 export const Index = () => {
     const em = sessionStorage.getItem("email")
     const rol = sessionStorage.getItem("Rol")
+    const name =sessionStorage.getItem("name")
 
     function buttonUpload() {
         
@@ -47,7 +48,7 @@ export const Index = () => {
         <div className="container mt-5">
 
             <div className="alert alert-dark" role="alert">
-                Bienvenido {em} has iniciado sesion!
+                Bienvenido {name} has iniciado sesion!
             </div>
             
             <div className="row row-cols-1 row-cols-md-3 g-4" id ="master" onLoad={hiddendiv}>
