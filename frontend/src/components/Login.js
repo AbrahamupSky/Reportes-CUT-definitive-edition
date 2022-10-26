@@ -64,8 +64,7 @@ export const Login = () => {
                             <input type="password"
                                 onChange={e => setContraseña(e.target.value)}
                                 value={contraseña}
-                                className="form-control"
-                                placeholder="Contraseña" required />
+                                className="form-control"/>
                             <br />
                         </div>
 
