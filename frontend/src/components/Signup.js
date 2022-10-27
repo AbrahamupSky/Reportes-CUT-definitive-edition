@@ -33,7 +33,7 @@ export const Signup = () => {
                 email: email,
                 contraseña: contraseña,
                 role: rol,
-                status: "Denegado"
+                status: "Aceptado"
                
             })
         })
@@ -86,20 +86,6 @@ export const Signup = () => {
                                 id="inputCode" required />
                             <br />
                         </div>
-
-                        <div className="col-md-6">
-                            <label htmlFor="inputEmail" className="form-label">Email</label>
-                            <input
-                                type="email"
-                                onChange={e => setEmail(e.target.value)}
-                                className="form-control"
-                                placeholder="Correo Institucional"
-                                id="inputEmail" required />
-                        </div>
-
-
-
-
                         { rol1==="7" && !contraseñaActive? setcontraseñaActive(!contraseñaActive):
                         contraseñaActive && <div className="col-md-6">
                             <label htmlFor="inputPassword" className="form-label">Contraseña</label>
@@ -111,9 +97,18 @@ export const Signup = () => {
                                 id="inputPassword" required />
                         </div>
                         }
+                        <div className="col-md-6">
+                            <label htmlFor="inputEmail" className="form-label">Email</label>
+                            <input
+                                type="email"
+                                onChange={e => setEmail(e.target.value)}
+                                className="form-control"
+                                placeholder="Correo Institucional"
+                                id="inputEmail" required />
+                        </div>
                         {(rol1 === "1" || rol1 === "7") && !form1Active? setForm1Active(!form1Active):
                         form1Active && <div className="col-md-6">
-                            <label htmlFor="exampleSelect1" className="form-label mt-4">Especifica el rol</label>
+                            <label htmlFor="exampleSelect1" className="form-label mt-6">Especifica el rol</label>
                             <select onChangeCapture={selectArea} defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
                                 <option value='0'>Escoge una opcion</option>
                                 <option value='1'>Jefe de Departamento</option>
@@ -124,7 +119,7 @@ export const Signup = () => {
                         }
                         {rol1 === "3" && !form2Active? setForm2Active(!form2Active):
                         form2Active && <div className="col-md-6">
-                            <label htmlFor="exampleSelect3" className="form-label mt-4">Especifica el rol</label>
+                            <label htmlFor="exampleSelect3" className="form-label mt-6">Especifica el rol</label>
                             <select defaultValue='2' className="form-select" id="exampleSelect3" onClick={e => setRol(e.target.value)} required>
                                 <option value='2'>Maestro</option>
                             </select>
@@ -142,7 +137,6 @@ export const Signup = () => {
                             </select>
                         </div>
                         }
-                    
 
                         <div className="text-center mt-4">
                             <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrarse</button>
