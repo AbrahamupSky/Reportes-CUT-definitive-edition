@@ -14,7 +14,9 @@ export const Report = () => {
   const em = sessionStorage.getItem("email")
   const [files, setFiles] = useState([]);
   const [cycles, setCycles] = useState([]);
-  const [cycleSelect, setCycleSelect] = useState('')
+  const [cycleSelect, setCycleSelect] = useState('');
+  const [filter, setFilter] = useState("")
+
 
   //Se obtienen todos los archivos de la base de datos del usuario
   const getFiles = async () => {
@@ -29,6 +31,9 @@ export const Report = () => {
       body: JSON.stringify({
         codigo: id,
         cycleSelect: cycleSelect,
+
+
+
       }),
     };
 
@@ -55,6 +60,7 @@ export const Report = () => {
     console.log(data);
   }
 
+   
   useEffect(() => {
     getFiles();
     getCycles();
@@ -112,17 +118,19 @@ export const Report = () => {
     e.preventDefault();
     await getFiles();
   }
- 
-  // function filesFilter() {
-  //   const filesArray = [];
-  //   for (var file in files) {
-  //     if (files[file].cycle === cycleSelect) {
-  //       filesArray.push(files[file]);
-  //     }
-  //   }
-  //   setFilteredFiles(filesArray);
-  //   return;
-  // }
+  //funciones del filtro de busqueda
+  const searcher = (e) => {
+    setFilter(e.target.value)
+    console.log(e.target.value)
+  }
+  
+  let results = []
+  if(!filter){
+    results = files
+  } else{
+    results = files.filter((dato) => dato.fileName.toLowerCase().includes(filter.toLocaleLowerCase()))
+    
+  }
 
   return (
     <div>
@@ -135,12 +143,23 @@ export const Report = () => {
               <h3 className="text-white p-2 m-1">ciclo</h3>
             </div>
             <select onChange={e => setCycleSelect(e.target.value)} className="form-select" name="cycle" id="cycle" required>
-              <option defaultValue="0">Todos</option>
+              <option value={""}>Todos</option>
               {
                 cycles.map(cycle => (
                   <option key={cycle.id} value={cycle.id}> {cycle.cycle}</option>
                 ))}
             </select>
+          </div>
+          
+          <div className="col-md-6 mt-3">
+            <div className="text-center row border bg-primary">
+              <h3 className="text-white p-2 m-1">Filtro de Busqueda</h3>
+            </div>
+            
+            <input className="form-control"  type="text" placeholder="Escribe una palabra clave" id="inputFilter" value={filter} onChange={searcher}/>
+
+            
+
           </div>
 
           <div className="TABLA  col-md-8 mt-3">
@@ -157,7 +176,7 @@ export const Report = () => {
                 </tr>
               </thead>
               <tbody>
-                {files.map(item => (
+                {results.map(item => (
                   <tr key={item.id}>
                     <td>{item.shift}</td>
                     <td>{item.evidenceType}</td>
