@@ -1,1 +1,1 @@
-Pagina Web con el proposito de ayudar a los profesores a subir evidencias de aprendizaje de sus cursos y que los jefes de departamentos puedan relizar chequeos de los mismos para la entrega de un reporte al Presidente de academia. 
+Pagina Web con el proposito de ayudar a los profesores a subir evidencias de aprendizaje de sus cursos y que los jefes de departamentos puedan relizar chequeos de los mismos para la entrega de un reporte al Presidente de Academia. 
