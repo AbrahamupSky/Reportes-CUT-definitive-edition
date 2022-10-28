@@ -300,7 +300,7 @@ def course():
     if request.method == 'POST':
         cour = mysql.connection.cursor()
         cour.execute(
-            'SELECT NameCourse FROM course WHERE idAcademy= %s', (academia,))
+            'SELECT NameCourse FROM course WHERE IdAcademy= %s', (academia,))
         courses = cour.fetchall()
         return make_response(jsonify(courses), 200)
     else:
