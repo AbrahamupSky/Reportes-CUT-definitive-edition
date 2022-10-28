@@ -7,7 +7,7 @@ export const About = (props) => {
     return (
         <div className="container mt-5 text-center">
             <h1>Coco{props.value}  </h1>
-            <h2>No pues, es la pagina shida en la que los maestros pueden subir archivos, y donde pueden quemar a sus alumnos haha k creisi</h2>
+            <h3>Pagina dedicada a los jefes de departamento, maestros y presidentes de academias, en las cuales podrán subir sus archivos reportes, como actividades, examenes, listas de asistencia y proyectos, así como también pueden generar reportes en los cuales pueder ver los turnos, categorias, materias, archivos adjuntos, archivarlos y verlos.</h3>
             
         </div>
     )
