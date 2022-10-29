@@ -101,7 +101,7 @@ def recovery_Password():
             cursor.execute('UPDATE `users` SET `password` = %s WHERE email = %s', (bcrypt.hashpw(tok.encode('utf-8'), bcrypt.gensalt()), email))
             mysql.connection.commit()
             from_address = "reportescutonala@gmail.com"
-            to_address = "luis30002011@hotmail.com"
+            to_address = email
             message = "Esta es tu nueva contraseña, te recomendamos cambiarla al iniciar sesion" + tok
             subject = "Recuperacion de cuenta"
             em = EmailMessage()
