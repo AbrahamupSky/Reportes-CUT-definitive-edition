@@ -1,3 +1,5 @@
+from email import message
+from xmlrpc.client import Server
 from flask import Flask, json, request, session, make_response, jsonify, Response, render_template, send_file
 from flask_mysqldb import MySQL
 from flask_cors import CORS, cross_origin
@@ -89,27 +91,43 @@ def recovery_Password():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT email FROM users WHERE email = %s', (email,))
         Ema = cursor.fetchone()
-        e = ""
         if Ema is None:
             return make_response(jsonify(m), 401)
-        else : e = Ema['email']
-    token = random.randint(1000, 9000)
-    tok = str(token)
-    msg = MIMEMultipart()
+        else : 
+            token = random.randint(1000, 9000)
+            tok = str(token)
+            cursor.execute('UPDATE `users` SET `password` = %s WHERE email = %s', (bcrypt.hashpw(tok.encode('utf-8'), bcrypt.gensalt()), email))
+            mysql.connection.commit()
+            from_address = "micorreo@gmail.com"
+            to_address = "correodestinatario@gmail.com"
+            message = "Mensaje enviado desde python"
+            mime_message = MIMEText(message)
+            mime_message["From"] = from_address
+            mime_message["To"] = to_address
+            mime_message["Subject"] = "Correo de prueba"
+            smtp = SMTP("smtp.gmail.com", 587)
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+            smtp.login(from_address, "clave")
+            smtp.sendmail(from_address, to_address, mime_message.as_string())
+            smtp.quit()
+            return make_response(jsonify("Correo Enviado"), 200)
+
+   
+    """
+    
     message = "Este es tu token de verificacion, usalo para actualizar tu contraseña: "+tok
-    password = "cutonala123"
     cursor.execute('UPDATE users SET password = %s WHERE email = %s',(tok,e)) 
     mysql.connection.commit()
-    msg['From'] = "cutonalaevidencias@gmail.com"
-    msg['To'] = e
-    msg['Subject'] = "Recuperacion de contraseña"
+    
     msg.attach(MIMEText(message, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com: 587')
     server.starttls()
     server.login(msg['From'], password)
     server.sendmail(msg['From'], msg['To'], msg.as_string())
     server.quit()
-    return make_response(jsonify("Correo Enviado"), 200)
+    """
 
 
 @app.route('/changePs', methods=['post'])
