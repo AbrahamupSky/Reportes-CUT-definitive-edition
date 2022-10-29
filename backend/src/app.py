@@ -263,6 +263,7 @@ def uploads():
             shift = request.form['shift']
             date = datetime.now()
             cycle = request.form['cycle']
+            estado = 'visible'
 
             files = request.files.getlist('formFile')
             myList = []
@@ -275,8 +276,8 @@ def uploads():
                 myList.append(filename)
 
                 cursor = mysql.connection.cursor()
-                cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
-                    'Null', date, cycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
+                cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
+                    'Null', date, cycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype, estado))
                 mysql.connection.commit()
             return make_response(render_template('uploadDone.html', msg=myList), 200)
 
@@ -306,7 +307,7 @@ def course():
     if request.method == 'POST':
         cour = mysql.connection.cursor()
         cour.execute(
-            'SELECT NameCourse FROM course WHERE idAcademy= %s', (academia,))
+            'SELECT NameCourse FROM course WHERE IdAcademy= %s', (academia,))
         courses = cour.fetchall()
         return make_response(jsonify(courses), 200)
     else:
@@ -400,10 +401,10 @@ def getTeacher():
         cycle = request.json['cycleSelect']
         cursor = mysql.connection.cursor()
         if not cycle:
-            cursor.execute('SELECT files.date, files.cycle, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s', (code,))
+            cursor.execute('SELECT files.date, files.cycle, files.id, files.idTeachers, files.courseName, files.evidenceType, files.shift, files.fileName FROM files WHERE idTeachers = %s and estado=%s', (code,'visible',))
         else:
             cursor.execute('SELECT fi.date, fi.id, fi.idTeachers, fi.courseName, fi.evidenceType, fi.shift, fi.fileName' +
-                            ' FROM files fi inner join cycles cy on fi.cycle = cy.id WHERE idTeachers = %s and cy.id = %s', (code, cycle))  
+                            ' FROM files fi inner join cycles cy on fi.cycle = cy.id WHERE idTeachers = %s and cy.id = %s and estado=%s', (code, cycle,'visible'))  
         res = cursor.fetchall()
         return make_response(jsonify(res), 200)
 
@@ -436,7 +437,7 @@ def plot():
 
         code = request.json['codigo']
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT courseName, COUNT(*) AS qty FROM files WHERE idTeachers = %s GROUP BY courseName',(code,))
+        cursor.execute('SELECT courseName, COUNT(*) AS qty FROM files WHERE idTeachers = %s and estado = %s GROUP BY courseName',(code,'visible'))
         res = cursor.fetchall()
         return make_response(jsonify(data = res), 200)
 
@@ -444,7 +445,8 @@ def plot():
 def chartDelete(id):
 
     cursor = mysql.connection.cursor()
-    cursor.execute('DELETE FROM files WHERE id = %s',(id,))
+    #Los archvios "eliminados" sólo cambian de estado a "archivado" y el usuario ya no los podrá visualizar
+    cursor.execute('UPDATE files SET estado=%s WHERE id = %s',('archivado',id,))
     mysql.connection.commit()
     return jsonify({'msg': 'Archivo Eliminado'})
 
