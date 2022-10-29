@@ -30,10 +30,11 @@ export const ChangePass = (props) => {
         const ema = await fetch(`${API}/changePs`, opts)
         const data = await ema.json()
         if (ema.status === 200){
-        window.alert(data);
+            window.alert(data);
+            window.location.href = "/ChangePass"
       
        }else{
-        window.alert(data);
+            window.alert(data);
     }
     
 
@@ -56,7 +57,7 @@ export const ChangePass = (props) => {
                                 required />
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="inputPassword" className="form-label">token</label>
+                            <label htmlFor="inputPassword" className="form-label">Token</label>
                             <input
                                 type="password"
                                 onChange={e => setpassword(e.target.value)}

@@ -127,12 +127,11 @@ def changeP():
         newpassword = request.json['newpassword']
 
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT password FROM users WHERE email = %s', (email))
-        contrasena = cursor.fetchone()
-        hashed = str(contrasena).encode('utf-8')
-        estatus = bcrypt.checkpw(password, hashed)
+        cursor.execute('SELECT `email`, `password` FROM `users` WHERE email = %s', (email,))
+        em = cursor.fetchone()
+        hashed = str(em['password']).encode('utf-8')        
 
-        if estatus:         
+        if bcrypt.checkpw(password, hashed):         
             cursor.execute('UPDATE `users` SET `password` = %s WHERE email = %s', (bcrypt.hashpw(newpassword.encode('utf-8'), bcrypt.gensalt()), email))
             mysql.connection.commit()
             return make_response(jsonify("Contraseña Actualizada"), 200)
