@@ -1,4 +1,5 @@
 from email import message
+from stat import FILE_ATTRIBUTE_TEMPORARY
 from xmlrpc.client import Server
 from flask import Flask, json, request, session, make_response, jsonify, Response, render_template, send_file
 from flask_mysqldb import MySQL
@@ -13,7 +14,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import random
-
+from email.message import EmailMessage
+import ssl
 
 app = Flask(__name__)
 app.secret_key = 'Linda'
@@ -98,57 +100,44 @@ def recovery_Password():
             tok = str(token)
             cursor.execute('UPDATE `users` SET `password` = %s WHERE email = %s', (bcrypt.hashpw(tok.encode('utf-8'), bcrypt.gensalt()), email))
             mysql.connection.commit()
-            from_address = "micorreo@gmail.com"
-            to_address = "correodestinatario@gmail.com"
-            message = "Mensaje enviado desde python"
-            mime_message = MIMEText(message)
-            mime_message["From"] = from_address
-            mime_message["To"] = to_address
-            mime_message["Subject"] = "Correo de prueba"
-            smtp = SMTP("smtp.gmail.com", 587)
-            smtp.ehlo()
-            smtp.starttls()
-            smtp.ehlo()
-            smtp.login(from_address, "clave")
-            smtp.sendmail(from_address, to_address, mime_message.as_string())
-            smtp.quit()
+            from_address = "reportescutonala@gmail.com"
+            to_address = "luis30002011@hotmail.com"
+            message = "Esta es tu nueva contraseña, te recomendamos cambiarla al iniciar sesion" + tok
+            subject = "Recuperacion de cuenta"
+            em = EmailMessage()
+            em['From'] = from_address
+            em['To'] = to_address
+            em['Subject'] = subject
+            em.set_content(message)
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465, context= context) as smtp:
+                smtp.login(from_address, "wdkfuhktyjruxrjt")
+                smtp.sendmail(from_address, to_address, em.as_string())
+                smtp.quit()
             return make_response(jsonify("Correo Enviado"), 200)
 
-   
-    """
-    
-    message = "Este es tu token de verificacion, usalo para actualizar tu contraseña: "+tok
-    cursor.execute('UPDATE users SET password = %s WHERE email = %s',(tok,e)) 
-    mysql.connection.commit()
-    
-    msg.attach(MIMEText(message, 'plain'))
-    server = smtplib.SMTP('smtp.gmail.com: 587')
-    server.starttls()
-    server.login(msg['From'], password)
-    server.sendmail(msg['From'], msg['To'], msg.as_string())
-    server.quit()
-    """
 
-
-@app.route('/changePs', methods=['post'])
-def ChangeP():
+@app.route('/changePs', methods=['POST'])
+def changeP():
 
     m='El correo y token no coinciden'
-    email = request.json['email']
     if request.method == 'POST':
         email = request.json['email']
-        contraseña = request.json['contraseña']
-        token = request.json['token']
+        password = request.json['password'].encode('utf-8')
+        newpassword = request.json['newpassword']
+
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT email FROM users WHERE password = %s and email = %s', (token,email))
-        Ema = cursor.fetchone()
-        e = ""
-        if Ema is None:
-            return make_response(jsonify(m), 401)
-        else :
-            cursor.execute('UPDATE users SET password = %s WHERE email = %s', (bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt()),email))
+        cursor.execute('SELECT password FROM users WHERE email = %s', (email))
+        contrasena = cursor.fetchone()
+        hashed = str(contrasena).encode('utf-8')
+        estatus = bcrypt.checkpw(password, hashed)
+
+        if estatus:         
+            cursor.execute('UPDATE `users` SET `password` = %s WHERE email = %s', (bcrypt.hashpw(newpassword.encode('utf-8'), bcrypt.gensalt()), email))
             mysql.connection.commit()
-            return  make_response(jsonify("Contraseña Actualizada"), 200)
+            return make_response(jsonify("Contraseña Actualizada"), 200)
+        else: 
+            return make_response(jsonify(m), 401)
 
 
 @app.route('/logout', methods=['GET'])
