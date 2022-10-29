@@ -257,6 +257,7 @@ def uploads():
             shift = request.form['shift']
             date = datetime.now()
             cycle = request.form['cycle']
+            estado = 'visible'
 
             files = request.files.getlist('formFile')
             myList = []
@@ -269,8 +270,8 @@ def uploads():
                 myList.append(filename)
 
                 cursor = mysql.connection.cursor()
-                cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
-                    'Null', date, cycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype))
+                cursor.execute('INSERT INTO files VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
+                    'Null', date, cycle, idTeachers, academyName, courseName, evidenceType, shift, filename, filedata.encode('latin-1'), mimetype, estado))
                 mysql.connection.commit()
             return make_response(render_template('uploadDone.html', msg=myList), 200)
 
