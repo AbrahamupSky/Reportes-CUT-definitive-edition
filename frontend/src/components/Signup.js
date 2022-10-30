@@ -40,7 +40,7 @@ export const Signup = () => {
         const data = await res.text()
         if (res.status === 200){
             window.swal(data, '', 'success');
-            window.location.href = "/"
+            setInterval(function(){ window.location.href = "/"; }, 2000);
         }else{
             window.swal(data, '', 'error');
         }
