@@ -56,17 +56,11 @@ export const Profile = () => {
                 <div style={{ width: '550px' }} className="card border-dark mb-3 rounded p-4" >
                     <img style={{ height: '200px' }} src={user} className="card-img-top" alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title text-center">Datos de la Cuenta</h5>
+                        <h5 className="card-title text-center">Datos del Usuario</h5>
                         <div className="form-group">
                             <fieldset>
-                                <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo:</label>
+                                <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo</label>
                                 <input className="form-control" value={nombre} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
-                            </fieldset>
-                        </div>
-                        <div className="form-group">
-                            <fieldset>
-                                <label className="form-label mt-4" htmlFor="readOnlyInput">Status</label>
-                                <input className="form-control" value={Status} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
                         <div className="form-group">
@@ -77,14 +71,20 @@ export const Profile = () => {
                         </div>
                         <div className="form-group">
                             <fieldset>
-                                <label className="form-label mt-2" htmlFor="readOnlyInput">Email</label>
+                                <label className="form-label mt-2" htmlFor="readOnlyInput">Correo</label>
                                 <input className="form-control" value={correo} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
                         <div className="form-group">
                             <fieldset>
                                 <label className="form-label mt-2" htmlFor="readOnlyInput">Rol</label>
-                                <input className="form-control" value={rol} id="readOnlyInput" type="text" placeholder="Readonly input here..."/>
+                                <input className="form-control" value={rol} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
+                            </fieldset>
+                        </div>
+                        <div className="form-group">
+                            <fieldset>
+                                <label className="form-label mt-4" htmlFor="readOnlyInput">Status</label>
+                                <input className="form-control" value={Status} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
                         </div>
                     </div>
