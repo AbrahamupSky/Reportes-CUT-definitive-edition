@@ -51,9 +51,9 @@ export const Profile = () => {
 
 
     return (
-        <div onLoad={getProfile} className="container mt-5">
+        <div onLoad={getProfile} className="container mt-2">
             <div className="d-flex justify-content-center align-items-center">
-                <div style={{ width: '550px' }} className="card border-dark mb-3 rounded p-4" >
+                <div style={{ width: '600px' }} className="card border-dark mb-3 rounded p-4" >
                     <img style={{ height: '200px' }} src={user} className="card-img-top" alt="..." />
                     <div className="card-body">
                         <h5 className="card-title text-center">Datos del Usuario</h5>
