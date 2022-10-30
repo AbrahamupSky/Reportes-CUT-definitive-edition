@@ -8,12 +8,12 @@ export const ChangePass = (props) => {
 
 
     const [email, setEmail] = useState('')
-    const [contraseña, setContraseña] = useState('')
+    const [password, setpassword] = useState('')
     const [token, setToken] = useState('')
     const em = sessionStorage.getItem("email")
 
 //console.log()
-    const ChaPass = async (e) => {
+    const changePass = async (e) => {
         e.preventDefault()
         const opts = {
             method: 'POST',
@@ -22,18 +22,19 @@ export const ChangePass = (props) => {
             },
             body: JSON.stringify({
                 email: email,
-                contraseña: contraseña,
-                token: token,
+                password: password,
+                newpassword: token,
             })
         };
 
         const ema = await fetch(`${API}/changePs`, opts)
         const data = await ema.json()
-         if (ema.status === 200){
-        window.alert('Contraseña actualizada');
+        if (ema.status === 200){
+            window.alert(data);
+            window.location.href = "/ChangePass"
       
        }else{
-        window.alert(data);
+            window.alert(data);
     }
     
 
@@ -42,7 +43,7 @@ export const ChangePass = (props) => {
         <div>
             {em && em !== "" && em !== undefined ? <Redirect to="/index" /> : <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: '100%', height: '85vh', backgroundRepeat: 'no-repeat', }}>
                 <div className="m-5 p-4 d-flex justify-content-center align-items-center " style={{ width: '80%' }}>
-                    <form onSubmit={ChaPass} className="row border border border-dark m-3 p-5 rounded" style={{ background: 'white' }}>
+                    <form onSubmit={changePass} className="row border border border-dark m-3 p-5 rounded" style={{ background: 'white' }}>
 
 
                         <div className="col-md-6">
@@ -52,13 +53,14 @@ export const ChangePass = (props) => {
                                 onChange={e => setEmail(e.target.value)}
                                 className="form-control"
                                 placeholder="Correo Institucional"
-                                id="inputEmail" required />
+                                id="inputEmail" 
+                                required />
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="inputPassword" className="form-label">token</label>
+                            <label htmlFor="inputPassword" className="form-label">Token</label>
                             <input
                                 type="password"
-                                onChange={e => setToken(e.target.value)}
+                                onChange={e => setpassword(e.target.value)}
                                 className="form-control"
                                 placeholder="Introduce tu token aqui"
                                 id="inputToken" required />
@@ -67,7 +69,7 @@ export const ChangePass = (props) => {
                             <label htmlFor="inputPassword" className="form-label">Nueva contraseña</label>
                             <input
                                 type="password"
-                                onChange={e => setContraseña(e.target.value)}
+                                onChange={e => setToken(e.target.value)}
                                 className="form-control"
                                 placeholder="Introduce tu nueva contraseña aqui"
                                 id="inputPassword" required />

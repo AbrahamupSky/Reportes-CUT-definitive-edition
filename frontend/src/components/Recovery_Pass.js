@@ -25,9 +25,9 @@ export const Recovery_Pass = (props) => {
 
         const ema = await fetch(`${API}/recovery_Pass`, opts)
         const data = await ema.json()
-         if (ema.status === 200){
-            
-         window.location.href = "/ChangePass"
+        if (ema.status === 200){
+            window.alert("Token enviado a tu correo") 
+            window.location.href = "/ChangePass"
        }else{
         window.alert(data);
     }
