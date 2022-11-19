@@ -36,7 +36,8 @@ export const Login = () => {
             window.location.href = "/index"
         }
         else if (res.status === 401) {
-            window.alert(JSON.stringify(data));
+            window.swal(JSON.stringify(data));
+            setInterval(function(){ window.location.href = "/"; }, 3000);
         }
 
         
@@ -65,7 +66,8 @@ export const Login = () => {
                             <input type="password"
                                 onChange={e => setContraseña(e.target.value)}
                                 value={contraseña}
-                                className="form-control"/>
+                                className="form-control"
+                                placeholder="Contraseña" required />
                             <br />
                         </div>
 

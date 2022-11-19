@@ -72,9 +72,9 @@ export const Cycles = () => {
 
         const data = await res.text()
         if (res.status === 200){
-            window.alert(data);
+            window.swal(data);
         }else{
-            window.alert(data);
+            window.swal(data);
         }
         await getCycles();
     }

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import card1 from '../images/Card1.svg';
 import card2 from '../images/Card2.svg';
 import card3 from '../images/Card3.svg';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 export const Index = () => {
     const em = sessionStorage.getItem("email")

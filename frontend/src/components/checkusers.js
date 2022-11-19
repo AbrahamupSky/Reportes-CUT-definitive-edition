@@ -85,10 +85,10 @@ export const Checkusers = () => {
 
 
         if (res.status === 200) {
-            window.alert(data);
+            window.swal(data);
             window.location.href = "/"
         } else {
-            window.alert(data);
+            window.swal(data);
         }
     }
 
@@ -114,10 +114,10 @@ export const Checkusers = () => {
         setStatus(data.Status)
 
         if (res.status === 200) {
-            window.alert(data);
+            window.swal(data);
             window.location.href = "/"
         } else {
-            window.alert(data);
+            window.swal(data);
         }
         
     }

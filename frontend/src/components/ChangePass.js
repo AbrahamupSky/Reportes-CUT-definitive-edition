@@ -30,11 +30,12 @@ export const ChangePass = (props) => {
         const ema = await fetch(`${API}/changePs`, opts)
         const data = await ema.json()
         if (ema.status === 200){
-            window.alert(data);
+            window.swal(data);
+            setInterval(function(){ window.location.href = "/"; }, 3000);
             window.location.href = "/ChangePass"
       
        }else{
-            window.alert(data);
+            window.swal(data);
     }
     
 

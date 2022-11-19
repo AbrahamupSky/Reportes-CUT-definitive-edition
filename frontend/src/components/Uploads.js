@@ -41,7 +41,7 @@ export const Uploads = () => {
             setAcademy(data)
         }
         else if (res.status === 401) {
-            window.alert(JSON.stringify(data));
+            window.swal(JSON.stringify(data));
         }
     }
 
@@ -65,7 +65,7 @@ export const Uploads = () => {
             setCourse(data)
         }
         else if (res.status === 401) {
-            window.alert(JSON.stringify(data));
+            window.swal(JSON.stringify(data));
         }
     }
 
