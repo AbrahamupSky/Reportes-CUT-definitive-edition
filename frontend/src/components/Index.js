@@ -35,13 +35,13 @@ export const Index = () => {
     const div = document.querySelector("div");
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-2">
 
             <div className="alert alert-dark" role="alert">
                 Bienvenido {name} has iniciado sesion!
             </div>
             
-            <div className="row row-cols-1 row-cols-md-3 g-4" id ="master" onLoad={hiddendiv}>
+            <div className="row row-cols-1 row-cols-md-2 g-2" id ="master" onLoad={hiddendiv}>
                 <div className="col Card1" id="maestro">
                     <div className="card h-100">
                         <img src={card1} className="card-img-top" alt="..." />

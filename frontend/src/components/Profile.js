@@ -1,5 +1,6 @@
 import user from '../images/user.svg';
 import React, { useState } from 'react';
+import background from "../images/dawn.svg";
 
 const API = process.env.REACT_APP_API;
 
@@ -51,35 +52,39 @@ export const Profile = () => {
 
 
     return (
-        <div onLoad={getProfile} className="container mt-2">
+        <div onLoad={getProfile} className="container mt-2" style={{backgroundImage: `url(${background})`}}>
             <div className="d-flex justify-content-center align-items-center">
                 <div style={{ width: '600px' }} className="card border-dark mb-3 rounded p-4" >
                     <img style={{ height: '200px' }} src={user} className="card-img-top" alt="..." />
                     <div className="card-body">
                         <h5 className="card-title text-center">Datos del Usuario</h5>
-                        <div className="form-group">
-                            <fieldset>
-                                <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo</label>
-                                <input className="form-control" value={nombre} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
-                            </fieldset>
+                        <div className="row">
+                            <div className='col'>
+                                <fieldset>
+                                    <label className="form-label mt-4" htmlFor="readOnlyInput">Nombre Completo</label>
+                                    <input className="form-control" value={nombre} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
+                                </fieldset>
+                            </div>
+                            <div className="col">
+                                <fieldset>
+                                    <label className="form-label mt-4" htmlFor="readOnlyInput">Codigo UdeG</label>
+                                    <input className="form-control" value={codigo} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
+                                </fieldset>
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <fieldset>
-                                <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo UdeG</label>
-                                <input className="form-control" value={codigo} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
-                            </fieldset>
-                        </div>
-                        <div className="form-group">
+                        <div className="row">
+                            <div className='col'>
                             <fieldset>
                                 <label className="form-label mt-2" htmlFor="readOnlyInput">Correo</label>
                                 <input className="form-control" value={correo} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
-                        </div>
-                        <div className="form-group">
+                            </div>
+                        <div className="col">
                             <fieldset>
                                 <label className="form-label mt-2" htmlFor="readOnlyInput">Rol</label>
                                 <input className="form-control" value={rol} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
                             </fieldset>
+                        </div>
                         </div>
                         <div className="form-group">
                             <fieldset>
