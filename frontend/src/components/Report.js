@@ -185,7 +185,6 @@ export const Report = () => {
                     <td className="text-center">
                       <button onClick={() => DeleFile(item.id)} className="btn btn-danger btn-sm">Eliminar</button>
                     </td>
-                    
                     <td><button onClick={() => window.open(`${API}/fileView/${item.id}`, '_blank')} className="btn btn-warning btn-sm text-primary"><FontAwesomeIcon icon={faFileAlt} /></button></td>
                   </tr>
                 ))}
@@ -194,15 +193,16 @@ export const Report = () => {
             </TableScrollbar>
           </div>
 
-          <div className="PLOT  col-md-4 mt-3 border border-dark" style={{ maxHeight: '91vh' }} >
-
-            <div className="Codigo mt-3">
+          <div className="PLOT  col-md-4 mt-3 border border-dark" style={{ maxHeight: '76vh' }} >
+          <div className="row">
+            <div className="Codigo mt-3 col">
               <label className="form-label mt-2" htmlFor="readOnlyInput">Correo Institucional:</label>
               <input className="form-control" value={em} id="readOnlyInput" type="text" placeholder="Ninguno" readOnly />
             </div>
-            <div className="Codigo mt-1 mb-4">
+            <div className="Codigo mt-3 mb-4 col">
               <label className="form-label mt-2" htmlFor="readOnlyInput">Codigo:</label>
               <input className="form-control" value={id} id="readOnlyInput" type="text" placeholder="Ninguno" readOnly />
+            </div>
             </div>
             <div className="border border-dark mb-4">
               <Plot />
