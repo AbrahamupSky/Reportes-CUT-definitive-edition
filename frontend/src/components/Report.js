@@ -208,7 +208,7 @@ export const Report = () => {
               <Plot />
             </div>
             <div className="text-center d-grid gap-2">
-              <button onClick={() => Download()} type="button" className="btn btn-lg btn-success text-primary">Generar Reporte</button>
+              <button onClick={() => Download()} type="button" className="btn btn-primary text-white p-3">Generar Reporte</button>
             </div>
 
           </div>
