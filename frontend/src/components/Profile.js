@@ -86,12 +86,6 @@ export const Profile = () => {
                             </fieldset>
                         </div>
                         </div>
-                        <div className="form-group">
-                            <fieldset>
-                                <label className="form-label mt-4" htmlFor="readOnlyInput">Status</label>
-                                <input className="form-control" value={Status} id="readOnlyInput" type="text" placeholder="Readonly input here..." readOnly />
-                            </fieldset>
-                        </div>
                     </div>
                 </div>
             </div>

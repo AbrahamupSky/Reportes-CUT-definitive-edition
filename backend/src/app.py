@@ -208,7 +208,7 @@ def profile():
         # fetch
         cursor = mysql.connection.cursor()
         cursor.execute(
-            'SELECT `users`.`codeUDG`, `users`.`fullName`, `users`.`email`, `users`.`role`, `users`.`Status` FROM `users` WHERE codeUDG = %s', (code,))
+            'SELECT `users`.`codeUDG`, `users`.`fullName`, `users`.`email`, `users`.`role` FROM `users` WHERE codeUDG = %s', (code,))
         res = cursor.fetchone()
 
         return make_response(jsonify(res), 200)
@@ -522,7 +522,7 @@ def viewAllFiles():
 
     if 'loggedin' in session:
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT files.id, files.academyName, files.courseName, files.evidenceType, files.shift, files.fileName FROM files')
+        cursor.execute('SELECT files.id, files.idTeachers, files.academyName, files.courseName, files.evidenceType, files.shift, files.fileName FROM files')
         res = cursor.fetchall()
 
         return make_response(jsonify(res))

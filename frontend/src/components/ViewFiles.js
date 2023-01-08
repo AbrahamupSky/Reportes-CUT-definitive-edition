@@ -41,6 +41,7 @@ export const ViewFiles = () => {
     const temp = sessionStorage.getItem("Temp")
     const [teachers, setTeachers] = useState([])
     const [code, setCode] = useState('')
+    const [codigo, setCodigo] = useState('')
 
     const getTeacher = async (codigo) => {
         const opts = {
@@ -117,7 +118,8 @@ export const ViewFiles = () => {
                         <table className="table table-bordered">
                             <thead className="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">id</th>
+                                    <th scope="col">id archivo</th>
+                                    <th scope="col">id Maestro</th>
                                     <th scope="col">Academia</th>
                                     <th scope="col">Materia</th>
                                     <th scope="col">Tipo de Evidencia</th>
@@ -132,6 +134,7 @@ export const ViewFiles = () => {
 
                                     <tr key={user.id}>
                                         <td>{user.id}</td>
+                                        <td>{user.idTeachers}</td>
                                         <td>{user.academyName}</td>
                                         <td>{user.courseName}</td>
                                         <td>{user.evidenceType}</td>
