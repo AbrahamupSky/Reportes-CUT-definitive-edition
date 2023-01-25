@@ -110,7 +110,7 @@ export const Signup = () => {
                         form1Active && <div className="col-md-6">
                             <label htmlFor="exampleSelect1" className="form-label mt-6">Especifica el rol</label>
                             <select onChangeCapture={selectArea} defaultValue='0' className="form-select" id="exampleSelect1" onClick={e => setRol(e.target.value)} required>
-                                <option value='0'>Escoge una opcion</option>
+                                <option value='0'>Escoga un rol</option>
                                 <option value='1'>Jefe de Departamento</option>
                                 <option value='2'>Maestro</option>
                                 <option value='10'>Presidente de academia</option>
@@ -119,7 +119,7 @@ export const Signup = () => {
                         }
                         {rol1 === "3" && !form2Active? setForm2Active(!form2Active):
                         form2Active && <div className="col-md-6">
-                            <label htmlFor="exampleSelect3" className="form-label mt-6">Especifica el rol</label>
+                            <label htmlFor="exampleSelect3" className="form-label mt-6">Especifique el rol</label>
                             <select defaultValue='2' className="form-select" id="exampleSelect3" onClick={e => setRol(e.target.value)} required>
                                 <option value='2'>Maestro</option>
                             </select>
@@ -127,9 +127,9 @@ export const Signup = () => {
                         } 
                         {
                         areasActive && <div className="col-md-6">
-                            <label htmlFor="exampleSelect2" className="form-label mt-4">Especifica el area</label>
+                            <label htmlFor="exampleSelect2" className="form-label mt-4">Especifique el area</label>
                             <select defaultValue='0' className="form-select" id="exampleSelect2" onClick={e => setRol(e.target.value)} required>
-                                <option value='0'>Escoge una opcion</option>
+                                <option value='0'>Escoga un area</option>
                                 <option value='3'>Ingenieria de Software</option>
                                 <option value='4'>Programacion Avanzada</option>
                                 <option value='5'>Gestion de datos</option>
@@ -139,7 +139,7 @@ export const Signup = () => {
                         }
 
                         <div className="text-center mt-4">
-                            <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrarse</button>
+                            <button style={{ width: '60%' }} type="submit" className="btn btn-primary">Registrar</button>
                         </div>
 
                     </form>
