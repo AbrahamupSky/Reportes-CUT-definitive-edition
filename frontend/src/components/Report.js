@@ -137,8 +137,12 @@ export const Report = () => {
       {rol === "1" ? <Redirect to="/index" /> :
 
 
-        <div className="row" style={{ maxWidth: '99vw' }}>
-          <div onClick={captureCycle} className="col-md-6 mt-3">
+        <div className="row d-flex justify-content-center" style={{ maxWidth: '99vw' }}>
+          {/* El codigo debajo sirve para hacer busquedas de archivos filtrado por ciclo
+              Se desactivo ya que no deberia dejarte manejar otros ciclos
+              Solo descomentar y si hace lo que debe hacer*/}
+
+        {/* <div onClick={captureCycle} className="col-md-6 mt-3">
             <div className="text-center row border bg-primary">
               <h3 className="text-white p-2 m-1">ciclo</h3>
             </div>
@@ -149,9 +153,9 @@ export const Report = () => {
                   <option key={cycle.id} value={cycle.id}> {cycle.cycle}</option>
                 ))}
             </select>
-          </div>
+          </div> */}
           
-          <div className="col-md-6 mt-3">
+          <div className="col-lg-6 col-md-6 mt-lg-3 mt-md-3">
             <div className="text-center row border bg-primary">
               <h3 className="text-white p-2 m-1">Filtro de Busqueda</h3>
             </div>
