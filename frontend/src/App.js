@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/about" component={About} />
           <Route exact path="/Recovery_pass" component={Recovery_Pass} />
           <Route exact path="/ChangePass" component={ChangePass} />
-          <PrivateRoute exact path="/register" component={Signup} />
+          <Route exact path="/register" component={Signup} />
           <PrivateRoute exact path="/checkusers" component={Checkusers} />
           <PrivateRoute exact path="/index" component={Index} />
           <PrivateRoute exact path="/upload" component={Uploads} />

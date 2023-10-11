@@ -1,0 +1,36 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD='123456'
+      - MYSQL_DB=cutdb
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_USER: 'myuser'
+      MYSQL_PASSWORD: '123456'
+      MYSQL_DATABASE: 'cutdb'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+    ports:
+      - "3306:3306"
