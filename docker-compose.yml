@@ -34,3 +34,4 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
     ports:
       - "3306:3306"
+    command: ['mysqld', '--max_allowed_packet=1024M']
