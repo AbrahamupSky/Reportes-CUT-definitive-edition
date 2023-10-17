@@ -33,5 +33,8 @@ services:
       MYSQL_DATABASE: 'cutdb'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
     ports:
-      - "3306:3306"
+      - "3333:3306"
     command: ['mysqld', '--max_allowed_packet=1024M']
+    volumes:
+      - ./cutdb.sql:/docker-entrypoint-initdb.d/tu_script.sql
+      - ./dbdata:/var/lib/mysql
